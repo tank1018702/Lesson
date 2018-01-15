@@ -11,8 +11,8 @@ namespace 拳愿阿修罗
         static List<Character> CreateCharacterList(List<Character> list)
         {
             Character cha1 = new Character("十鬼蛇王马", 2500, 27, 105);
-            cha1.AddSkill()
-
+            cha1.AddSkill(Skill.CreateDamageSkill("", 2, 20, 10, StateType.debuff, "", 30));
+            cha1.AddSkill(Skill)
             list.Add(cha1);
 
             Character cha2 = new Character("桐生刹那", 1900, 15, 157);

@@ -23,6 +23,7 @@ namespace 拳愿阿修罗
         {
             Name = name;
             MaxHP = maxhp;
+            HP = maxhp;
             Attacklowerlimit = attacklowerlimit;
             AttackUpperlimit = attackUpperlimit;
             DodgeRate = 10;

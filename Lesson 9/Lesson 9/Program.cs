@@ -108,10 +108,10 @@ namespace Lesson_9
     {
         static void Main(string[] args)
         {
-            Order11_11 order1 = new Order11_11("番茄", 4.0f, 2, DiscountType.双11, 0.8f);
+            Order order1 = new Order11_11("番茄", 4.0f, 2, DiscountType.双11, 0.8f);
             Order order2 = new Order("西蓝花", 2.0f, 1, DiscountType.普通);
             Order order3 = new Order("大白菜", 1.5f, 4, DiscountType.普通);
-            Order_BlackWeek5 order4 = new Order_BlackWeek5("葱", 1.1f, 6, DiscountType.黑五, 6);
+            Order order4 = new Order_BlackWeek5("葱", 1.1f, 6, DiscountType.黑五, 6);
             Book book1 = new Book();
             book1.AddToBook(order1);
             book1.AddToBook(order2);
@@ -124,4 +124,4 @@ namespace Lesson_9
         }
     }
 }
-//四大皆空分内事带你飞乐山大佛
+

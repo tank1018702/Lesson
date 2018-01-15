@@ -1,9 +1,11 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
-VisualStudioVersion = 15.0.27004.2005
+VisualStudioVersion = 15.0.27130.2003
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "账本与订单", "Lesson 9\账本与订单.csproj", "{DEC41566-2D97-4C54-A0AD-5BA9BDCEFD4D}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "text", "text\text.csproj", "{D6F0387E-79BA-452B-B3F5-BF73C568F085}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -15,6 +17,10 @@ Global
 		{DEC41566-2D97-4C54-A0AD-5BA9BDCEFD4D}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{DEC41566-2D97-4C54-A0AD-5BA9BDCEFD4D}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{DEC41566-2D97-4C54-A0AD-5BA9BDCEFD4D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D6F0387E-79BA-452B-B3F5-BF73C568F085}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D6F0387E-79BA-452B-B3F5-BF73C568F085}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D6F0387E-79BA-452B-B3F5-BF73C568F085}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D6F0387E-79BA-452B-B3F5-BF73C568F085}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

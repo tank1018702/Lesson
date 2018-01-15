@@ -8,10 +8,8 @@ namespace 拳愿阿修罗
 {
     enum SkillType
     {
-        ActiveDamageSkill,         //主动伤害技能,可附加负面状态
-        ActiveStateSkill,          //主动BUFF,有持续时间
-        PassiveStateSkill,         //被动BUFF,常驻
-        PassiveTriggerStateSkill   //被动触发BUFF,有触发条件或者几率
+        Active,
+        passive
     }
   
 
@@ -33,18 +31,16 @@ namespace 拳愿阿修罗
         {
             states.Add(state);
         }
-        public virtual  Skill CreateDamageSkill (string name,int damagerate,int triggerrate)
+        public static  Skill CreateDamageSkill (string name,int damagerate,int triggerrate, int times, StateType type,string state_name,int hpovertime)
         {
             Skill skill = new Skill();
-            skill.Type = SkillType.ActiveDamageSkill;
+            skill.Type = SkillType.Active;
             skill.StateTrigger = false;
             skill.Name = name;
             skill.DamageRate = damagerate;
             skill.TriggerRate = triggerrate;
-            skill.AddState(State.CreateDebuff());
-
-
-
+            skill.Times = times;
+            skill.AddState(State.CreateHPState(type,state_name,hpovertime));
             return skill;
         }
 
