@@ -11,7 +11,7 @@ namespace 拳愿阿修罗
         static List<Character> CreateCharacterList(List<Character> list)
         {
             Character cha1 = new Character("十鬼蛇王马", 2500, 27, 105);
-
+            cha1.AddSkill()
 
             list.Add(cha1);
 
@@ -21,15 +21,12 @@ namespace 拳愿阿修罗
             list.Add(cha2);
 
 
-            Character cha3 = new Character("田中一郎", 2100, 44, 60);
-
-
-            list.Add(cha3);
+            
 
 
             return list;
         }
-
+        
         static Character GetCharacter(List<Character> list)
         {
             int r = Utils.random.Next(list.Count);
@@ -39,11 +36,12 @@ namespace 拳愿阿修罗
         }
         static void Main(string[] args)
         {
+            int Victory_times = 0;
             List<Character> characters = new List<Character>();
             CreateCharacterList(characters);
             Character player = GetCharacter(characters);
             Character enemy = GetCharacter(characters);
-            Console.WriteLine("{0} {1}", player.Name, enemy.Name);
+            
             Console.ReadKey();
         }
     }

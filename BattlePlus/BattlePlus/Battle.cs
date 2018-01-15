@@ -66,7 +66,7 @@ namespace BattlePlus
                 ShowInfo(enemy);//输出怪物的信息
                 Console.WriteLine();
                 round += 1;
-                System.Threading.Thread.Sleep(2000);
+                System.Threading.Thread.Sleep(1000);
                 Console.Clear();
             }
 

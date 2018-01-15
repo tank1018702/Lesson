@@ -31,7 +31,10 @@ namespace 拳愿阿修罗
 
         }
 
-
+        public void AddSkill(Skill skill)
+        {
+            Skills.Add(skill);
+        }
         
 
 
