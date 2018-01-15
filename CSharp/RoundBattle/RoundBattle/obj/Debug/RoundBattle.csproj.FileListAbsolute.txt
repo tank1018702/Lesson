@@ -1,0 +1,7 @@
+E:\shenyan\CSharp\RoundBattle\RoundBattle\bin\Debug\RoundBattle.exe.config
+E:\shenyan\CSharp\RoundBattle\RoundBattle\bin\Debug\RoundBattle.exe
+E:\shenyan\CSharp\RoundBattle\RoundBattle\bin\Debug\RoundBattle.pdb
+E:\shenyan\CSharp\RoundBattle\RoundBattle\obj\Debug\RoundBattle.csproj.CoreCompileInputs.cache
+E:\shenyan\CSharp\RoundBattle\RoundBattle\obj\Debug\RoundBattle.exe
+E:\shenyan\CSharp\RoundBattle\RoundBattle\obj\Debug\RoundBattle.pdb
+E:\shenyan\CSharp\RoundBattle\RoundBattle\obj\Debug\RoundBattle.csprojResolveAssemblyReference.cache

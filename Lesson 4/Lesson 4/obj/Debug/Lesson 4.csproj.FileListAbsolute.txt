@@ -1,0 +1,7 @@
+E:\shenyan\Lesson 4\Lesson 4\bin\Debug\Lesson 4.exe.config
+E:\shenyan\Lesson 4\Lesson 4\bin\Debug\Lesson 4.exe
+E:\shenyan\Lesson 4\Lesson 4\bin\Debug\Lesson 4.pdb
+E:\shenyan\Lesson 4\Lesson 4\obj\Debug\Lesson 4.csprojResolveAssemblyReference.cache
+E:\shenyan\Lesson 4\Lesson 4\obj\Debug\Lesson 4.csproj.CoreCompileInputs.cache
+E:\shenyan\Lesson 4\Lesson 4\obj\Debug\Lesson 4.exe
+E:\shenyan\Lesson 4\Lesson 4\obj\Debug\Lesson 4.pdb

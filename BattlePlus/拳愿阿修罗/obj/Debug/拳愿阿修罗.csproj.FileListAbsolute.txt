@@ -1,0 +1,7 @@
+E:\shenyan\BattlePlus\拳愿阿修罗\bin\Debug\拳愿阿修罗.exe.config
+E:\shenyan\BattlePlus\拳愿阿修罗\bin\Debug\拳愿阿修罗.exe
+E:\shenyan\BattlePlus\拳愿阿修罗\bin\Debug\拳愿阿修罗.pdb
+E:\shenyan\BattlePlus\拳愿阿修罗\obj\Debug\拳愿阿修罗.csprojResolveAssemblyReference.cache
+E:\shenyan\BattlePlus\拳愿阿修罗\obj\Debug\拳愿阿修罗.csproj.CoreCompileInputs.cache
+E:\shenyan\BattlePlus\拳愿阿修罗\obj\Debug\拳愿阿修罗.exe
+E:\shenyan\BattlePlus\拳愿阿修罗\obj\Debug\拳愿阿修罗.pdb

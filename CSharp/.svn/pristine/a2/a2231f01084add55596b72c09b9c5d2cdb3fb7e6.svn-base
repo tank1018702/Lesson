@@ -1,0 +1,252 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace RoundBattle
+{
+    enum SkillType
+    {
+        Damage,
+        DamageOverTime,
+        Heal,
+        Invincible,
+        Execute,
+    }
+
+    enum StateType
+    {
+        DamageOverTime,
+        Invincible,
+    }
+}
+
+namespace RoundBattle
+{
+    class Character
+    {
+        public static Random random = null;
+
+        public string name;
+        public int hp;
+        public List<Skill> skills = new List<Skill>();
+
+        // 正在生效的状态
+        public List<State> states = new List<State>();
+
+        public bool AddState(State state)
+        {
+            states.Add(state);
+            return true;
+        }
+
+        public bool HasState(StateType state_type)
+        {
+            for (int i=0; i<states.Count; ++i)
+            {
+                if (states[i].time>0 && states[i].type == state_type)
+                {
+                    return true;
+                }
+            }
+            return false;
+        }
+
+        public void AddSkill(Skill skill)
+        {
+            skills.Add(skill);
+        }
+
+        public Skill GetSkill(int skill_index)
+        {
+            Skill skill = skills[skill_index];
+            return skill;
+        }
+
+        public Skill RandSkill()
+        {
+            int r = random.Next(skills.Count);
+            return GetSkill(r);
+        }
+
+        private void CostHp(int n)
+        {
+            hp -= n;
+            if (hp < 0)
+            {
+                hp = 0;
+            }
+        }
+
+        public bool BeHit(Skill skill)
+        {
+            if (hp <= 0)
+            {
+                return false;
+            }
+            switch (skill.type)
+            {
+                case SkillType.Damage:
+                    if (HasState(StateType.Invincible))
+                    {
+                        return false;
+                    }
+                    CostHp(skill.damage);
+                    break;
+                case SkillType.DamageOverTime:
+                    State temp = new State(StateType.DamageOverTime, skill.time_DOT, skill.damage_DOT);
+                    temp.name = skill.name;
+                    AddState(temp);
+                    break;
+                case SkillType.Heal:
+                    hp += skill.heal;
+                    break;
+                case SkillType.Invincible:
+                    State temp2 = new State(StateType.Invincible, skill.time, 0);
+                    temp2.name = skill.name;
+                    AddState(temp2);
+                    break;
+                case SkillType.Execute:
+                    CostHp(hp);
+                    break;
+            }
+            return true;
+        }
+
+        public List<State> StateTakeEffect()
+        {
+            List<State> effect_states = new List<State>();
+            foreach (State state in states)
+            {
+                if (state.time == 0)
+                {
+                    continue;
+                }
+                effect_states.Add(state);
+                switch (state.type)
+                {
+                    case StateType.DamageOverTime:
+                        CostHp(state.damage);
+                        state.time -= 1;
+                        break;
+                    case StateType.Invincible:
+                        state.time -= 1;
+                        break;
+                }
+            }
+            return effect_states;
+        }
+
+        public bool UseSkill(Skill skill, Character target_cha)
+        {
+            switch(skill.type)
+            {
+                case SkillType.Execute:
+                    if (target_cha.hp >= skill.max_hp)
+                    {
+                        return false;
+                    }
+                    return true;
+                default:
+                    return true;
+            }
+        }
+    }
+
+    class Skill
+    {
+        public string name;
+        public SkillType type;
+
+        // 攻击类型
+        public int damage;
+
+        // 治疗类型
+        public int heal;
+
+        // DOT类型
+        public int time_DOT;
+        public int damage_DOT;
+
+        // 处决类型
+        public int max_hp;
+
+        // 无敌类型
+        public int time;
+
+        public static Skill CreateDamageSkill(string name, int damage)
+        {
+            Skill skill = new Skill();
+            skill.name = name;
+            skill.type = SkillType.Damage;
+            skill.damage = damage;
+            return skill;
+        }
+
+        public static Skill CreateDOTSkill(string name, int time, int damage)
+        {
+            Skill skill = new Skill();
+            skill.name = name;
+            skill.type = SkillType.DamageOverTime;
+            skill.time_DOT = time;
+            skill.damage_DOT = damage;
+            return skill;
+        }
+
+        public static Skill CreateHealSkill(string name, int heal)
+        {
+            Skill skill = new Skill();
+            skill.name = name;
+            skill.type = SkillType.Heal;
+            skill.heal = heal;
+            return skill;
+        }
+
+        public static Skill CreateInvincibleSkill(string name, int time)
+        {
+            Skill skill = new Skill();
+            skill.name = name;
+            skill.type = SkillType.Invincible;
+            skill.time = time;
+            return skill;
+        }
+
+        public static Skill CreateExecuteSkill(string name, int hp)
+        {
+            Skill skill = new Skill();
+            skill.name = name;
+            skill.type = SkillType.Execute;
+            skill.max_hp = hp;
+            return skill;
+        }
+    }
+
+    class State
+    {
+        public StateType type;
+        public string name;
+        public int damage;
+        public int time;
+        public State(StateType t, int d1, int d2)
+        {
+            type = t;
+            switch(t)
+            {
+                case StateType.DamageOverTime:
+                    time = d1;
+                    damage = d2;
+                    break;
+                case StateType.Invincible:
+                    time = d1;
+                    break;
+            }
+        }
+
+        public override string ToString()
+        {
+            return name + "(" + time + ")";
+        }
+    }
+
+}

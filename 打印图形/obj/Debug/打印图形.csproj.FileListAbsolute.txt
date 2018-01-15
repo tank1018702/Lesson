@@ -1,0 +1,7 @@
+E:\mayao\hello\打印图形\bin\Debug\打印图形.exe.config
+E:\mayao\hello\打印图形\bin\Debug\打印图形.exe
+E:\mayao\hello\打印图形\bin\Debug\打印图形.pdb
+E:\mayao\hello\打印图形\obj\Debug\打印图形.csprojResolveAssemblyReference.cache
+E:\mayao\hello\打印图形\obj\Debug\打印图形.csproj.CoreCompileInputs.cache
+E:\mayao\hello\打印图形\obj\Debug\打印图形.exe
+E:\mayao\hello\打印图形\obj\Debug\打印图形.pdb

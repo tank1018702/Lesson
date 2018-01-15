@@ -1,0 +1,7 @@
+E:\shenyan\lesson 2\ConsoleApp1\bin\Debug\ConsoleApp1.exe.config
+E:\shenyan\lesson 2\ConsoleApp1\bin\Debug\ConsoleApp1.exe
+E:\shenyan\lesson 2\ConsoleApp1\bin\Debug\ConsoleApp1.pdb
+E:\shenyan\lesson 2\ConsoleApp1\obj\Debug\Card.csprojResolveAssemblyReference.cache
+E:\shenyan\lesson 2\ConsoleApp1\obj\Debug\Card.csproj.CoreCompileInputs.cache
+E:\shenyan\lesson 2\ConsoleApp1\obj\Debug\ConsoleApp1.exe
+E:\shenyan\lesson 2\ConsoleApp1\obj\Debug\ConsoleApp1.pdb

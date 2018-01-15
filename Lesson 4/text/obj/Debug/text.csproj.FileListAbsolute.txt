@@ -1,0 +1,6 @@
+E:\shenyan\Lesson 4\text\bin\Debug\text.exe.config
+E:\shenyan\Lesson 4\text\bin\Debug\text.exe
+E:\shenyan\Lesson 4\text\bin\Debug\text.pdb
+E:\shenyan\Lesson 4\text\obj\Debug\text.csproj.CoreCompileInputs.cache
+E:\shenyan\Lesson 4\text\obj\Debug\text.exe
+E:\shenyan\Lesson 4\text\obj\Debug\text.pdb

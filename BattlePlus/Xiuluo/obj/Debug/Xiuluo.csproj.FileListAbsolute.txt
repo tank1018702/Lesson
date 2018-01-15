@@ -1,0 +1,7 @@
+E:\shenyan\BattlePlus\Xiuluo\bin\Debug\Xiuluo.exe.config
+E:\shenyan\BattlePlus\Xiuluo\bin\Debug\Xiuluo.exe
+E:\shenyan\BattlePlus\Xiuluo\bin\Debug\Xiuluo.pdb
+E:\shenyan\BattlePlus\Xiuluo\obj\Debug\Xiuluo.csprojResolveAssemblyReference.cache
+E:\shenyan\BattlePlus\Xiuluo\obj\Debug\Xiuluo.csproj.CoreCompileInputs.cache
+E:\shenyan\BattlePlus\Xiuluo\obj\Debug\Xiuluo.exe
+E:\shenyan\BattlePlus\Xiuluo\obj\Debug\Xiuluo.pdb

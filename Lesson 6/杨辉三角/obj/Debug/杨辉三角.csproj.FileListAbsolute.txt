@@ -1,0 +1,7 @@
+E:\shenyan\Lesson 6\杨辉三角\bin\Debug\杨辉三角.exe.config
+E:\shenyan\Lesson 6\杨辉三角\bin\Debug\杨辉三角.exe
+E:\shenyan\Lesson 6\杨辉三角\bin\Debug\杨辉三角.pdb
+E:\shenyan\Lesson 6\杨辉三角\obj\Debug\杨辉三角.csprojResolveAssemblyReference.cache
+E:\shenyan\Lesson 6\杨辉三角\obj\Debug\杨辉三角.csproj.CoreCompileInputs.cache
+E:\shenyan\Lesson 6\杨辉三角\obj\Debug\杨辉三角.exe
+E:\shenyan\Lesson 6\杨辉三角\obj\Debug\杨辉三角.pdb

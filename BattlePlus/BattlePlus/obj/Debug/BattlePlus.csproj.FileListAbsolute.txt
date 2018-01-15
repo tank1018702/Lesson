@@ -1,0 +1,7 @@
+E:\shenyan\BattlePlus\BattlePlus\bin\Debug\BattlePlus.exe.config
+E:\shenyan\BattlePlus\BattlePlus\bin\Debug\BattlePlus.exe
+E:\shenyan\BattlePlus\BattlePlus\bin\Debug\BattlePlus.pdb
+E:\shenyan\BattlePlus\BattlePlus\obj\Debug\BattlePlus.csprojResolveAssemblyReference.cache
+E:\shenyan\BattlePlus\BattlePlus\obj\Debug\BattlePlus.csproj.CoreCompileInputs.cache
+E:\shenyan\BattlePlus\BattlePlus\obj\Debug\BattlePlus.exe
+E:\shenyan\BattlePlus\BattlePlus\obj\Debug\BattlePlus.pdb

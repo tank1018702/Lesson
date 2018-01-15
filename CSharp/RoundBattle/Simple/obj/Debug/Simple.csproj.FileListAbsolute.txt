@@ -1,0 +1,6 @@
+E:\shenyan\CSharp\RoundBattle\Simple\bin\Debug\Simple.exe.config
+E:\shenyan\CSharp\RoundBattle\Simple\bin\Debug\Simple.exe
+E:\shenyan\CSharp\RoundBattle\Simple\bin\Debug\Simple.pdb
+E:\shenyan\CSharp\RoundBattle\Simple\obj\Debug\Simple.csproj.CoreCompileInputs.cache
+E:\shenyan\CSharp\RoundBattle\Simple\obj\Debug\Simple.exe
+E:\shenyan\CSharp\RoundBattle\Simple\obj\Debug\Simple.pdb
