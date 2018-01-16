@@ -1,0 +1,43 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 15
+VisualStudioVersion = 15.0.27004.2005
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "单身狗必须死", "Lesson 10\单身狗必须死.csproj", "{AF7909FB-8C4A-4567-A8AB-CF5ADAD6B726}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "农民伯伯锄大地", "农民伯伯锄大地\农民伯伯锄大地.csproj", "{568A1CD3-DCDC-4CF3-A571-CB0B69E2E563}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "快速排序", "快速排序\快速排序.csproj", "{B21452EE-CA64-4DCE-A3F9-D43D93EA33A6}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "神抽狗的末日", "神抽狗的末日\神抽狗的末日.csproj", "{BC2F8633-D681-40A7-B501-5FC4790065EC}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{AF7909FB-8C4A-4567-A8AB-CF5ADAD6B726}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{AF7909FB-8C4A-4567-A8AB-CF5ADAD6B726}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{AF7909FB-8C4A-4567-A8AB-CF5ADAD6B726}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{AF7909FB-8C4A-4567-A8AB-CF5ADAD6B726}.Release|Any CPU.Build.0 = Release|Any CPU
+		{568A1CD3-DCDC-4CF3-A571-CB0B69E2E563}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{568A1CD3-DCDC-4CF3-A571-CB0B69E2E563}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{568A1CD3-DCDC-4CF3-A571-CB0B69E2E563}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{568A1CD3-DCDC-4CF3-A571-CB0B69E2E563}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B21452EE-CA64-4DCE-A3F9-D43D93EA33A6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B21452EE-CA64-4DCE-A3F9-D43D93EA33A6}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B21452EE-CA64-4DCE-A3F9-D43D93EA33A6}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B21452EE-CA64-4DCE-A3F9-D43D93EA33A6}.Release|Any CPU.Build.0 = Release|Any CPU
+		{BC2F8633-D681-40A7-B501-5FC4790065EC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{BC2F8633-D681-40A7-B501-5FC4790065EC}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{BC2F8633-D681-40A7-B501-5FC4790065EC}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{BC2F8633-D681-40A7-B501-5FC4790065EC}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {B65B15D6-2A99-4238-884B-2EAF8693600C}
+	EndGlobalSection
+EndGlobal
