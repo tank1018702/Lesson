@@ -9,27 +9,22 @@ namespace 拳愿阿修罗
     class Character
     {
         public string Name;
-        public int AttackUpperlimit;
-        public int Attacklowerlimit;
+        public int Strength;
         public int HP;
         public int MaxHP;
         public int DodgeRate;
         public int CritRate;
-        public int SkillTriggerRate;
 
         public List<Skill> Skills = new List<Skill>();
-        public List<State> states = new List<State>();
-        public Character(string name,int maxhp,int attacklowerlimit, int attackUpperlimit)
+        //public List<State> states = new List<State>();
+        public Character(string name,int maxhp,int strength)
         {
             Name = name;
             MaxHP = maxhp;
             HP = maxhp;
-            Attacklowerlimit = attacklowerlimit;
-            AttackUpperlimit = attackUpperlimit;
+            Strength = strength;
             DodgeRate = 10;
             CritRate = 10;
-            SkillTriggerRate = 20;
-
         }
 
         public void AddSkill(Skill skill)
@@ -37,7 +32,10 @@ namespace 拳愿阿修罗
             Skills.Add(skill);
         }
         
-
+        public void GetDamage(int strength)
+        {
+            
+        }
 
         
     }

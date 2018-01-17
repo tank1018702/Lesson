@@ -10,17 +10,17 @@ namespace text
     {
         static void Main(string[] args)
         {
-            while(true)
+            int n = 1;
+            for (int i = 1; i < 21; i++)
             {
-                string input = Console.ReadLine();
-                
-                bool b = double.TryParse(input, out double n);
-                 n = n / 10 + 1;
-                double a = Math.Log(n,1.02);
-                Console.WriteLine(a);
+
+                double d = n / 10.0 + 1;
+                double a = Math.Log(d, 1.011);
+                Console.WriteLine("{0}:{1}", i, a);
+                n++;
             }
-            
-            
+
+            Console.ReadKey();
         }
     }
 }
