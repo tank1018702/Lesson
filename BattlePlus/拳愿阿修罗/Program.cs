@@ -8,39 +8,41 @@ namespace 拳愿阿修罗
 {
     class Program
     {
-        static List<Character> CreateCharacterList(List<Character> list)
+        public static List<int> IDlist = new List<int>();
+        static Dictionary<int, Character> CreateCharacterDictionary()
         {
-            Character cha1 = new Character("十鬼蛇王马", 2500, 27, 105);
-            cha1.AddSkill(Skill.CreateDamageSkill("", 2, 20, 10, StateType.debuff, "", 30));
-            cha1.AddSkill(Skill)
-            list.Add(cha1);
+            var dict = new Dictionary<int, Character>();
+            Character cha1 = new Character("十鬼蛇王马", 2500, 5,01);
+          
+            dict.Add(cha1.ID,cha1);
+            IDlist.Add(cha1.ID);
 
-            Character cha2 = new Character("桐生刹那", 1900, 15, 157);
+            Character cha2 = new Character("桐生刹那", 1900, 4,02);
+            dict.Add(cha2.ID,cha2);
+            IDlist.Add(cha2.ID);
 
-
-            list.Add(cha2);
+            
 
 
             
 
 
-            return list;
+            return dict;
         }
         
-        static Character GetCharacter(List<Character> list)
+        static Character GetCharacter(Dictionary<int,Character> dict)
         {
-            int r = Utils.random.Next(list.Count);
-            Character randomcharacter = list[r];
+            int r = Utils.random.Next(IDlist.Count);
+            Character randomcharacter = d[r];
             list.Remove(list[r]);
             return randomcharacter;
         }
         static void Main(string[] args)
         {
-            int Victory_times = 0;
-            List<Character> characters = new List<Character>();
-            CreateCharacterList(characters);
-            Character player = GetCharacter(characters);
-            Character enemy = GetCharacter(characters);
+            int Victory_times = 0;          
+           var Character_Dict =CreateCharacterDictionary();
+            Character player = GetCharacter(Character_Dict);
+            Character enemy = GetCharacter(Character_Dict);
             
             Console.ReadKey();
         }

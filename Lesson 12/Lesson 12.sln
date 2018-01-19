@@ -7,6 +7,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "宠物小精灵管理器", 
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "music text", "music text\music text.csproj", "{6D5FE1D2-DEB1-4645-8957-06D85C4D836F}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "精灵最终版", "精灵最终版\精灵最终版.csproj", "{D0E76B32-BBE1-48EA-A5CA-948CD9149FAE}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -21,6 +23,10 @@ Global
 		{6D5FE1D2-DEB1-4645-8957-06D85C4D836F}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{6D5FE1D2-DEB1-4645-8957-06D85C4D836F}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{6D5FE1D2-DEB1-4645-8957-06D85C4D836F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D0E76B32-BBE1-48EA-A5CA-948CD9149FAE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D0E76B32-BBE1-48EA-A5CA-948CD9149FAE}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D0E76B32-BBE1-48EA-A5CA-948CD9149FAE}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D0E76B32-BBE1-48EA-A5CA-948CD9149FAE}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
