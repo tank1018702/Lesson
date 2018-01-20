@@ -41,9 +41,9 @@ namespace Lesson_13
         }
         static void Main(string[] args)
         {
-            var filedict = new FileDictionary();
-            GetInput(filedict);
-            TestSave(filedict);
+            //var filedict = new FileDictionary();
+            //GetInput(filedict);
+            //TestSave(filedict);
             TestLoad();
             Console.ReadKey();
         }
@@ -106,12 +106,11 @@ namespace Lesson_13
             BinaryReader reader = new BinaryReader(file);
             while (file.Position < file.Length)
             {
-                Input_and_Load load = new Input_and_Load("",0,0.00);
+                Input_and_Load load = new Input_and_Load("",0,0);
                 load.Deseriallize_Stream(reader);
                 
 
-                
-                
+           
                 AddInPut_Load(load);
             }
             file.Close();

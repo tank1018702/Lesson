@@ -1,0 +1,31 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 15
+VisualStudioVersion = 15.0.27004.2005
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "能用EXCL解决的问题我偏偏要写程序", "Lesson 14\能用EXCL解决的问题我偏偏要写程序.csproj", "{039B5013-B6F2-44EE-97E1-7829E11C0998}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "光标控制实验", "光标控制实验\光标控制实验.csproj", "{C77FD6FB-4625-48BC-8EDB-0DE396A79DEA}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{039B5013-B6F2-44EE-97E1-7829E11C0998}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{039B5013-B6F2-44EE-97E1-7829E11C0998}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{039B5013-B6F2-44EE-97E1-7829E11C0998}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{039B5013-B6F2-44EE-97E1-7829E11C0998}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C77FD6FB-4625-48BC-8EDB-0DE396A79DEA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C77FD6FB-4625-48BC-8EDB-0DE396A79DEA}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C77FD6FB-4625-48BC-8EDB-0DE396A79DEA}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C77FD6FB-4625-48BC-8EDB-0DE396A79DEA}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {A5BC985A-8888-4E8A-99DF-2C228E2FABE4}
+	EndGlobalSection
+EndGlobal
