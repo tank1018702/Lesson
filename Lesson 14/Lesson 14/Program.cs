@@ -27,6 +27,28 @@ namespace Lesson_14
     class Manager
     {
         public Dictionary<string, Dishes> DishesList;
+        public Manager()
+        {
+            DishesList = new Dictionary<string, Dishes>();
+        }
+        public static void PrintALLDishes(Dictionary<string, Dishes> dict)
+        {
+            foreach(var pair in dict)
+            {
+                Console.Write(pair.Key+" ");
+                foreach( var ability in  pair.Value.Ability_List)
+                {
+                    Console.Write("{0}:{1}", ability.Key, ability.Value);
+                }
+                Console.WriteLine();
+                foreach(var ingrendient in pair.Value.Ingredients_List)
+                {
+                    Console.Write("<{0}:{1}>", ingrendient.Key, ingrendient.Value.Number+" ");
+                }
+                Console.WriteLine();
+                Console.WriteLine("----------------------------------------------------");
+            }
+        }
     }
     class Ability
     {
@@ -39,13 +61,13 @@ namespace Lesson_14
     }
     class Dishes  //菜肴
     {
-        string Name;
+       public string Name;
         int Level;
         string AbilityName;
         int Price;
 
-        Dictionary<string, Ingredients> Ingredients_List;   //食材列表
-        Dictionary<string, int> Ability_List;               //能力列表
+      public  Dictionary<string, Ingredients> Ingredients_List;   //食材列表
+     public   Dictionary<string, int> Ability_List;               //能力列表
 
 
         public Dishes() /*CreateDishes()*/
@@ -59,10 +81,10 @@ namespace Lesson_14
             Console.WriteLine("输入价格");
             Price = Program.InputToInt();
 
-            Console.WriteLine("输入需要能力:");
+
             Ability_List = CreateAbility_List();
 
-            Console.WriteLine("输入需要食材:");
+
             Ingredients_List = CreateIngredients_List();
 
 
@@ -70,35 +92,46 @@ namespace Lesson_14
         public Dictionary<string, Ingredients> CreateIngredients_List()
         {
             var dict = new Dictionary<string, Ingredients>();
+            int n;
 
-
-
-            while (true)
+            do
             {
+                var ingredients = new Ingredients();
+                Console.WriteLine("输入需求食材:");
+                ingredients.Name = Console.ReadLine();
+                Console.WriteLine("输入需求个数:");
+                ingredients.Number = Program.InputToInt();
+                dict.Add(ingredients.Name, ingredients);
+                Console.WriteLine("1.继续输入 2.完毕退出");
+                n = Program.InputToInt();
 
-            }
+
+            } while (n==1);
+            return dict;
         }
         public Dictionary<string, int> CreateAbility_List()
         {
             var dict = new Dictionary<string, int>();
-            Console.WriteLine
-            Console.WriteLine("输入能力:");
-            dict.Add(Console.ReadLine(), Program.InputToInt());
-            while (true)
-            {
 
-            }
+            Console.WriteLine("输入需求能力1:");
+            string ability1 = Console.ReadLine();
+            Console.WriteLine("输入能力1的值:");
+            int abi_var1 = Program.InputToInt();
+            Console.WriteLine("输入需求的能力2:");
+            string ability2 = Console.ReadLine();
+            Console.WriteLine("输入能力2的值:");
+            int abi_var2 = Program.InputToInt();
+            dict.Add(ability1, abi_var1);
+            dict.Add(ability2, abi_var2);
+            return dict;
         }
     }
     class Ingredients
     {
-        string Name;
+        public string Name;
+        public int Number;
+        public double price=0.00;
 
-        int price;
-        public Ingredients(string name)
-        {
-            Name = name;
-        }
 
     }
 
@@ -115,6 +148,11 @@ namespace Lesson_14
         }
         static void Main(string[] args)
         {
+            var dish = new Dishes();
+            var manager = new Manager();
+            manager.DishesList.Add(dish.Name, dish);
+            Manager.PrintALLDishes(manager.DishesList);
+            Console.ReadKey();
         }
     }
 }
