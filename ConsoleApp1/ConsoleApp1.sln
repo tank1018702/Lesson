@@ -1,9 +1,13 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
-VisualStudioVersion = 15.0.27004.2005
+VisualStudioVersion = 15.0.27130.2003
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "text", "ConsoleApp1\text.csproj", "{9823D06A-90A5-4EFB-9878-5BD35B8C10CF}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "invokeText", "invokeText\invokeText.csproj", "{6476C385-5435-49BA-9725-58A64562F1AD}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "委托和事件", "委托和事件\委托和事件.csproj", "{1AC8456D-90A4-483F-8139-3B58FA478C50}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -15,6 +19,14 @@ Global
 		{9823D06A-90A5-4EFB-9878-5BD35B8C10CF}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{9823D06A-90A5-4EFB-9878-5BD35B8C10CF}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{9823D06A-90A5-4EFB-9878-5BD35B8C10CF}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6476C385-5435-49BA-9725-58A64562F1AD}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6476C385-5435-49BA-9725-58A64562F1AD}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6476C385-5435-49BA-9725-58A64562F1AD}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6476C385-5435-49BA-9725-58A64562F1AD}.Release|Any CPU.Build.0 = Release|Any CPU
+		{1AC8456D-90A4-483F-8139-3B58FA478C50}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1AC8456D-90A4-483F-8139-3B58FA478C50}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1AC8456D-90A4-483F-8139-3B58FA478C50}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1AC8456D-90A4-483F-8139-3B58FA478C50}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

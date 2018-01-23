@@ -8,7 +8,10 @@ namespace 拳愿阿修罗
 {
     class Character
     {
-        public int ID;
+        /// <summary>
+        /// 角色类型
+        /// </summary>
+        public CharaType type;
         /// <summary>
         /// 角色名字
         /// </summary>
@@ -48,7 +51,7 @@ namespace 拳愿阿修罗
         /// <summary>
         /// 角色状态列表
         /// </summary>
-        public List<State> states = new List<State>();
+        public List<State> States = new List<State>();
         public Character(string name,int strength,int frame,int agile)
         {
             Name = name;
@@ -62,10 +65,20 @@ namespace 拳愿阿修罗
         /// </summary>
         /// <param name="strength"></param>
         /// <returns></returns>
-        public  int Damage(int strength)
+        public int Damage(int strength)
         {
             int damage = (int)Math.Log((strength/10.0+1), 1.003);
             return damage;
+        }
+        /// <summary>
+        /// 暴击倍率计算函数,随力量呈对数曲线增长
+        /// </summary>
+        /// <param name="strength"></param>
+        /// <returns></returns>
+        public double CriticalRatio(int strength)
+        {
+            double criticalratio = Math.Log(((strength + 10) / 1000.0 + 1),1.008);
+            return criticalratio;
         }
         /// <summary>
         /// 最大生命值计算函数,随体格呈对数曲线增长
@@ -132,7 +145,7 @@ namespace 拳愿阿修罗
         /// <returns></returns>
         public bool HasState(StateType stateType)
         {
-            foreach (State s in states)
+            foreach (State s in States)
             {
                 if (s.StateType== stateType)
                     return true;
@@ -158,24 +171,23 @@ namespace 拳愿阿修罗
             }             
             return skill;
         }
-
         /// <summary>
         /// 判断人物是否被命中
         /// </summary>
         /// <param name="cha">被击中者</param>
         /// <returns></returns>
-        public bool IsHit(Character cha)
+        public bool IsHit()
         {
-            return Utils.random.Next(1, 101) > cha.DodgeRate(cha.Agile) ? false : true;        
+            return Utils.random.Next(1, 101) > DodgeRate(Agile) ? false : true;        
         }
         /// <summary>
         /// 判断攻击者的攻击是否是致命一击
         /// </summary>
         /// <param name="cha">攻击者</param>
         /// <returns></returns>
-        public bool IsCrit(Character cha)
+        public bool IsCrit()
         {
-            return Utils.random.Next(1, 101) > cha.CritRate(cha.Agile) ? false : true;
+            return Utils.random.Next(1, 101) > CritRate(Agile) ? false : true;
         }
         /// <summary>
         /// 将状态添加到人物的状态列表里,包括BUFF和DEBUFF
@@ -183,10 +195,57 @@ namespace 拳愿阿修罗
         /// <param name="state"></param>
         public void AddState(State state)
         {
-            states.Add(state);
+            States.Add(state);
         }
-
-       
+        /// <summary>
+        /// 清空角色的状态栏
+        /// </summary>
+        public void ResetState()
+        {
+            States.Clear();
+        }
+        /// <summary>
+        /// 获取伤害加成
+        /// </summary>
+        /// <param name="damage"></param>
+        /// <param name="stateType">BUFF和DEBUFF</param>
+        /// <returns></returns>
+        public int GetIncreaseDamage(int damage,StateType stateType)
+        {
+            int tempDamage = damage;
+            foreach (State state in States)
+            {
+                if (state.StateType == stateType)
+                {
+                    if (state.Rounds > 0 || state.Times > 0)
+                    {
+                        tempDamage = Convert.ToInt32(damage * (1 + state.HitRate));
+                    }
+                }
+            }
+            return tempDamage;
+        }
+        /// <summary>
+        /// 获取伤害削弱
+        /// </summary>
+        /// <param name="damage"></param>
+        /// <param name="stateType">BUFF和DEBUFF</param>
+        /// <returns></returns>
+        public int GetWeakenedDamage(int damage, StateType stateType)
+        {
+            int tempDamage = damage;
+            foreach (State state in States)
+            {
+                if (state.StateType == stateType)
+                {
+                    if (state.Rounds > 0 || state.Times > 0)
+                    {
+                        tempDamage = Convert.ToInt32(damage * (1 - state.BeHitRate));
+                    }
+                }
+            }
+            return tempDamage;
+        }
 
         public bool IsAlive()
         {

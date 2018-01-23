@@ -25,13 +25,6 @@ namespace 拳愿阿修罗
         /// <param name="BeHiter">被攻击者</param>
         internal delegate void SkillState(Character Attacter, Character BeHiter);
         /// <summary>
-        /// 技能伤害数值计算的委托
-        /// </summary>
-        /// <param name="attacter"></param>
-        /// <param name="BeHiter"></param>
-        /// <returns></returns>
-        internal delegate int SkillDamage(Character Attacter, Character BeHiter);
-        /// <summary>
         /// 技能名字
         /// </summary>
         public string Name;
@@ -55,6 +48,10 @@ namespace 拳愿阿修罗
         ///  技能的攻击次数;
         /// </summary>
         public int HitTimes=1;
+        /// <summary>
+        /// 技能的伤害系数
+        /// </summary>
+        public double DamageRate=1;
         /// <summary>
         /// 技能是否包含即死效果
         /// </summary>
@@ -80,9 +77,13 @@ namespace 拳愿阿修罗
         /// </summary>
         public SkillState skillstate = null;
         /// <summary>
-        /// 技能的伤害值计算,返回一个全部计算完毕后的伤害值
+        /// 技能的伤害值计算,返回一个计算完毕后的伤害值
         /// </summary>
-        public SkillDamage skilldamage = null;
+        public  int SkillDamage(Character attacter,Character behiter)
+        {
+            int damage = Convert.ToInt32(attacter.Damage(attacter.Strength) * DamageRate - behiter.DamageModifier(behiter.Frame));
+            return damage > 0 ? damage : 1;
+        }
         /// <summary>
         /// 创建被动常驻技能的时候调用的触发方法,返回一个布尔值,为true则触发,触发可以是增益或减益状态或直接反击伤害之类
         /// </summary>
@@ -104,7 +105,32 @@ namespace 拳愿阿修罗
 
         public void UseSkill(Character attacker,Character behiter)
         {
-
+            if (Type==SkillType.Active)
+            {
+                attacker.HP -= CostHP;
+                attacker.STA -= CostSTA; 
+                for(int i=0;i<HitTimes;i++)
+                {
+                    int tempdamage;
+                    if(behiter.IsHit()&&MustHit==false)
+                    {
+                        continue;
+                    }
+                    tempdamage = SkillDamage(attacker, behiter);
+                    if (skillstate != null)
+                    {
+                        skillstate.Invoke(attacker, behiter);
+                    }
+                    tempdamage = attacker.GetIncreaseDamage(tempdamage, StateType.Buff);
+                    tempdamage = behiter.GetIncreaseDamage(tempdamage, StateType.Debuff);
+                    tempdamage = attacker.GetWeakenedDamage(tempdamage, StateType.Debuff);
+                    tempdamage = behiter.GetWeakenedDamage(tempdamage, StateType.Buff);
+                    if(attacker.IsCrit()||MustCrit==true)
+                    {
+                        tempdamage = (int)(tempdamage * attacker.CriticalRatio(attacker.Strength));
+                    }
+                }
+            }
         }
                                
         

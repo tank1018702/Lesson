@@ -14,13 +14,11 @@ namespace 拳愿阿修罗
             var dict = new Dictionary<int, Character>();
             Character cha1 = new Character("十鬼蛇王马", 2500, 5,01);
           
-            dict.Add(cha1.ID,cha1);
-            IDlist.Add(cha1.ID);
+            
+            
 
             Character cha2 = new Character("桐生刹那", 1900, 4,02);
-            dict.Add(cha2.ID,cha2);
-            IDlist.Add(cha2.ID);
-
+            
             
 
 

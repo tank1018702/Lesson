@@ -24,19 +24,9 @@ namespace 拳愿阿修罗
         /// </summary>
         Passive
     }
-    /// <summary>
-    /// 目标类型
-    /// </summary>
-    public enum TargetType
+    public enum ActiveSkillType
     {
-        /// <summary>
-        /// 敌人
-        /// </summary>
-        Enemy,
-        /// <summary>
-        /// 自己
-        /// </summary>
-        Self
+
     }
     /// <summary>
     /// 角色类型

@@ -50,11 +50,11 @@ namespace 拳愿阿修罗
         /// <summary>
         /// 受到伤害加深或削弱的比率
         /// </summary>
-        public int BeHitRate = 0;
+        public double BeHitRate = 0;
         /// <summary>
         /// 攻击时伤害加深或者削弱的比率
         /// </summary>
-        public int HitRate = 0;
+        public double HitRate = 0;
         /// <summary>
         /// 添加第一次生效的状态时调用的方法
         /// </summary>

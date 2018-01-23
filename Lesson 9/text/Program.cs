@@ -12,12 +12,12 @@ namespace text
         {
             int n = 1;
 
-            double x = 4.65;
+            
             for (int i = 1; i < 21; i++)
             {
 
-                double d = n/10.0+1 ;
-                double a =(int)( Math.Pow(x,d));
+                double d = (n+10)/1000.0+1 ;
+                double a = Math.Log(d,1.008);
                 Console.WriteLine("{0}:{1}", i, a);
                 n++;
             }
