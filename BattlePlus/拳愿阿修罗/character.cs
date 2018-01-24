@@ -23,15 +23,72 @@ namespace 拳愿阿修罗
         /// <summary>
         /// 力量值,与伤害相关
         /// </summary>
-        public int Strength;
+        int _strength;
+        /// <summary>
+        /// 限制力量值在1-20之间
+        /// </summary>
+        public int Strength
+        {
+            get {return _strength; }
+            set
+            {
+                if(value>20)
+                {
+                    _strength = 20;
+                }
+                else if(value<0)
+                {
+                    _strength = 1;
+                }
+                _strength = value;
+            }
+        }
         /// <summary>
         /// 体格值,与抗击打能力相关
         /// </summary>
-        public int Frame;
+        int _frame;
+        /// <summary>
+        ///  限制体格值在1-20之间;
+        /// </summary>
+        public int Frame
+        {
+            get { return _frame; }
+            set
+            {
+                if (value > 20)
+                {
+                    _frame = 20;
+                }
+                else if (value < 0)
+                {
+                    _frame = 1;
+                }
+                _frame = value;
+            }
+        }
         /// <summary>
         /// 敏捷值,与暴击和命中相关
         /// </summary>
-        public int Agile;
+        int _agile;
+        /// <summary>
+        ///  限制敏捷值在1-20之间;
+        /// </summary>
+        public int Agile
+        {
+            get { return _agile; }
+            set
+            {
+                if (value > 20)
+                {
+                    _agile = 20;
+                }
+                else if (value < 0)
+                {
+                    _agile = 1;
+                }
+                _agile = value;
+            }
+        }
         /// <summary>
         /// 当前血量
         /// </summary>
@@ -40,6 +97,10 @@ namespace 拳愿阿修罗
         /// 当前体力值(或者耐力值),类似MP,技能需要消耗体力值才能释放,否则只能普攻
         /// </summary>
         public int STA;
+        /// <summary>
+        /// 离散值,给予伤害数值一个小幅波动
+        /// </summary>
+        public double DiscreteValue=0.1;
         /// <summary>
         /// 角色预设技能列表(所有技能)
         /// </summary>
@@ -58,6 +119,8 @@ namespace 拳愿阿修罗
             Strength = strength;
             Frame = frame;
             Agile = agile;
+            HP = MaxHP(Strength);
+            STA = MaxSTA(Strength);
       
         }
         /// <summary>
@@ -205,7 +268,7 @@ namespace 拳愿阿修罗
             States.Clear();
         }
         /// <summary>
-        /// 获取伤害加成
+        /// 获取伤害加成,对于攻击者是BUFF,对于被攻击者是DEBUFF
         /// </summary>
         /// <param name="damage"></param>
         /// <param name="stateType">BUFF和DEBUFF</param>
@@ -226,7 +289,7 @@ namespace 拳愿阿修罗
             return tempDamage;
         }
         /// <summary>
-        /// 获取伤害削弱
+        /// 获取伤害削弱,对于攻击者来说是DEBUFF类型附带,对于被攻击者来说是BUFF类型
         /// </summary>
         /// <param name="damage"></param>
         /// <param name="stateType">BUFF和DEBUFF</param>
@@ -246,6 +309,10 @@ namespace 拳愿阿修罗
             }
             return tempDamage;
         }
+        //public bool CostHP()
+        //{
+
+        //}
 
         public bool IsAlive()
         {

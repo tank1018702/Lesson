@@ -4,10 +4,10 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{A7FC3BBE-C94D-4498-A3E9-F2BDF51D317E}</ProjectGuid>
+    <ProjectGuid>{4EF44DFC-8D25-4214-9FF3-D8A6E9DD9EA5}</ProjectGuid>
     <OutputType>Exe</OutputType>
-    <RootNamespace>拳愿阿修罗</RootNamespace>
-    <AssemblyName>拳愿阿修罗</AssemblyName>
+    <RootNamespace>界面设计</RootNamespace>
+    <AssemblyName>界面设计</AssemblyName>
     <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
@@ -42,13 +42,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="draw.cs" />
-    <Compile Include="utils.cs" />
-    <Compile Include="character.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="skill.cs" />
-    <Compile Include="state.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />

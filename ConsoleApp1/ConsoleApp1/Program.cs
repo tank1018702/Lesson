@@ -19,20 +19,28 @@ namespace ConsoleApp1
 
             Console.Write("┃");
             Console.SetCursorPosition(0, 2);
-            Console.WriteLine("┗━━━━━━━━━━━━━━━━━━━━┛");
+            Console.WriteLine("┣━━━━━━━━━━━━━━━━━━━━┫");
+            Console.Write("┃");
+            Console.SetCursorPosition(21, 3);
+            Console.Write("┃");
+            Console.SetCursorPosition(0, 4);
+            Console.Write("┗━━━━━━━━━━━━━━━━━━━━┛");
+            Console.SetCursorPosition(1, 3);
+            Console.ForegroundColor = ConsoleColor.Cyan;
+            Console.Write("┃┃┃┃┃┃┃┃┃┃┃┃┃┃┃┃┃┃┃┃");
             Console.SetCursorPosition(1, 1);
             Console.ForegroundColor = ConsoleColor.Green;
-            Console.Write("┋┋┋┋┋┋┋┋┋┋┋┋┋┋┋┋┋┋┋┋");
+            Console.Write("┃┃┃┃┃┃┃┃┃┃┃┃┃┃┃┃┃┃┃┃");
             Console.ReadKey(true);
             CleanHP();
             Console.SetCursorPosition(1, 1);
             Console.ForegroundColor = ConsoleColor.Yellow;
-            Console.Write("┋┋┋┋┋┋┋┋┋┋┋┋┋┋");
+            Console.Write("┃┃┃┃┃┃┃┃┃┃┃┃┃┃");
             Console.ReadKey(true);
             CleanHP();
             Console.SetCursorPosition(1, 1);
             Console.ForegroundColor = ConsoleColor.Red;
-            Console.Write("┋┋┋┋┋┋");
+            Console.Write("┃┃┃┃┃┃");
             
             Console.ReadKey();
         }

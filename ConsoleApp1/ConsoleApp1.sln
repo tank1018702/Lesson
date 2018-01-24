@@ -1,13 +1,15 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
-VisualStudioVersion = 15.0.27130.2003
+VisualStudioVersion = 15.0.27004.2005
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "text", "ConsoleApp1\text.csproj", "{9823D06A-90A5-4EFB-9878-5BD35B8C10CF}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "invokeText", "invokeText\invokeText.csproj", "{6476C385-5435-49BA-9725-58A64562F1AD}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "委托和事件", "委托和事件\委托和事件.csproj", "{1AC8456D-90A4-483F-8139-3B58FA478C50}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "界面设计", "界面设计\界面设计.csproj", "{4EF44DFC-8D25-4214-9FF3-D8A6E9DD9EA5}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -27,6 +29,10 @@ Global
 		{1AC8456D-90A4-483F-8139-3B58FA478C50}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{1AC8456D-90A4-483F-8139-3B58FA478C50}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{1AC8456D-90A4-483F-8139-3B58FA478C50}.Release|Any CPU.Build.0 = Release|Any CPU
+		{4EF44DFC-8D25-4214-9FF3-D8A6E9DD9EA5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4EF44DFC-8D25-4214-9FF3-D8A6E9DD9EA5}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4EF44DFC-8D25-4214-9FF3-D8A6E9DD9EA5}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4EF44DFC-8D25-4214-9FF3-D8A6E9DD9EA5}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

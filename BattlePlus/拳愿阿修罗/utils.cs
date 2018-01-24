@@ -55,7 +55,11 @@ namespace 拳愿阿修罗
         /// <summary>
         /// 减益状态
         /// </summary>
-        Debuff
+        Debuff,
+        /// <summary>
+        /// 常驻状态,多由被动技能附带
+        /// </summary>
+        PermanentState
     }
 
 }
