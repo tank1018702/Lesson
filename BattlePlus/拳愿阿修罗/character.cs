@@ -29,14 +29,14 @@ namespace 拳愿阿修罗
         /// </summary>
         public int Strength
         {
-            get {return _strength; }
+            get { return _strength; }
             set
             {
-                if(value>20)
+                if (value > 20)
                 {
                     _strength = 20;
                 }
-                else if(value<0)
+                else if (value < 0)
                 {
                     _strength = 1;
                 }
@@ -100,7 +100,7 @@ namespace 拳愿阿修罗
         /// <summary>
         /// 离散值,给予伤害数值一个小幅波动
         /// </summary>
-        public double DiscreteValue=0.1;
+        public double DiscreteValue = 0.1;
         /// <summary>
         /// 角色预设技能列表(所有技能)
         /// </summary>
@@ -113,7 +113,7 @@ namespace 拳愿阿修罗
         /// 角色状态列表
         /// </summary>
         public List<State> States = new List<State>();
-        public Character(string name,int strength,int frame,int agile)
+        public Character(string name, int strength, int frame, int agile)
         {
             Name = name;
             Strength = strength;
@@ -121,7 +121,7 @@ namespace 拳愿阿修罗
             Agile = agile;
             HP = MaxHP(Strength);
             STA = MaxSTA(Strength);
-      
+
         }
         /// <summary>
         /// 伤害计算函数,伤害随力量呈对数曲线增长
@@ -130,7 +130,7 @@ namespace 拳愿阿修罗
         /// <returns></returns>
         public int Damage(int strength)
         {
-            int damage = (int)Math.Log((strength/10.0+1), 1.003);
+            int damage = (int)Math.Log((strength / 10.0 + 1), 1.003);
             return damage;
         }
         /// <summary>
@@ -140,7 +140,7 @@ namespace 拳愿阿修罗
         /// <returns></returns>
         public double CriticalRatio(int strength)
         {
-            double criticalratio = Math.Log(((strength + 10) / 1000.0 + 1),1.008);
+            double criticalratio = Math.Log(((strength + 10) / 1000.0 + 1), 1.008);
             return criticalratio;
         }
         /// <summary>
@@ -148,7 +148,7 @@ namespace 拳愿阿修罗
         /// </summary>
         /// <param name="frame"></param>
         /// <returns></returns>
-        public  int MaxHP(int frame)
+        public int MaxHP(int frame)
         {
             int maxhp = (int)Math.Log((frame / 10.0 + 1), 1.0002772);
             return maxhp;
@@ -158,7 +158,7 @@ namespace 拳愿阿修罗
         /// </summary>
         /// <param name="frame">体格</param>
         /// <returns></returns>
-        public  int DamageModifier(int frame)
+        public int DamageModifier(int frame)
         {
             int damagemodifier = (int)Math.Log((frame / 10.0 + 1), 1.010);
             return damagemodifier;
@@ -168,7 +168,7 @@ namespace 拳愿阿修罗
         /// </summary>
         /// <param name="frame"></param>
         /// <returns></returns>
-        public  int MaxSTA(int frame)
+        public int MaxSTA(int frame)
         {
             int stamina = (int)Math.Log((frame / 10.0 + 1), 1.000693);
             return stamina;
@@ -178,7 +178,7 @@ namespace 拳愿阿修罗
         /// </summary>
         /// <param name="agile"></param>
         /// <returns></returns>
-        public  int CritRate(int agile)
+        public int CritRate(int agile)
         {
             int critrate = (int)Math.Pow((agile + 10) / 10.0 + 1, 3.163);
             return critrate;
@@ -188,7 +188,7 @@ namespace 拳愿阿修罗
         /// </summary>
         /// <param name="agile"></param>
         /// <returns></returns>
-        public  int DodgeRate(int agile)
+        public int DodgeRate(int agile)
         {
             int dodgerate = (int)Math.Pow(agile / 10.0 + 1, 4.65);
             return dodgerate;
@@ -210,7 +210,7 @@ namespace 拳愿阿修罗
         {
             foreach (State s in States)
             {
-                if (s.StateType== stateType)
+                if (s.StateType == stateType)
                     return true;
             }
             return false;
@@ -223,15 +223,15 @@ namespace 拳愿阿修罗
         public Skill RandomSkill(List<Skill> list)
         {
             Skill skill = null;
-            while(skill==null)
+            while (skill == null)
             {
                 skill = list[Utils.random.Next(list.Count - 1)];
                 if (skill.CanUseSkill(this))
                 {
                     return skill;
                 }
-                skill = null;  
-            }             
+                skill = null;
+            }
             return skill;
         }
         /// <summary>
@@ -241,10 +241,10 @@ namespace 拳愿阿修罗
         /// <returns></returns>
         public bool IsHit()
         {
-            return Utils.random.Next(1, 101) > DodgeRate(Agile) ? false : true;        
+            return Utils.random.Next(1, 101) > DodgeRate(Agile) ? false : true;
         }
         /// <summary>
-        /// 判断攻击者的攻击是否是致命一击
+        /// 判断攻击者的攻击是否触发致命一击
         /// </summary>
         /// <param name="cha">攻击者</param>
         /// <returns></returns>
@@ -256,12 +256,67 @@ namespace 拳愿阿修罗
         /// 将状态添加到人物的状态列表里,包括BUFF和DEBUFF
         /// </summary>
         /// <param name="state"></param>
-        public void AddState(State state)
+        public void AddState(State state,int[]index)
         {
+            string text;
+            for (int i = 0;  i < States.Count; i++)
+            {
+                if (States[i].Name == state.Name && States[i].SkillName == state.SkillName)
+                {
+                    States[i].Times = state.Times;
+                    States[i].Rounds = state.Rounds;
+                    text = string.Format("{0}的{1}状态持续时间延长！",Name,state.Name);
+                    Draw.BattleInfo(text,index);
+                    if(state.StateType==StateType.Buff)
+                    {
+                        Draw.DrawHealAnimation(this);
+                    }
+                    Draw.DrawDamageAnimation(this);
+                    return;
+                }
+            }
+            state.AddState?.Invoke(this);
             States.Add(state);
+            text = string.Format("{0}受到{1}状态的影响",Name,state.Name);
+            Draw.BattleInfo(text,index);
+            if(state.StateType == StateType.Buff)
+            {
+                Draw.DrawHealAnimation(this);
+            }
+            Draw.DrawDamageAnimation(this);
+
         }
         /// <summary>
-        /// 清空角色的状态栏
+        /// 移除一个状态
+        /// </summary>
+        /// <param name="s"></param>
+        public void RemoveState(State state,int[] index)
+        {
+            
+            for (int i=0; i < States.Count; i++)
+            {
+                if (States[i].Name == state.Name && States[i].SkillName == state.SkillName)
+                {
+                    States[i]?.RemoveState(this);
+                    States.RemoveAt(i);
+                    Draw.BattleInfo((Name + "失去了" + state.Name + "状态"),index);
+                    break;
+                }
+            }
+        }
+        /// <summary>
+        /// 对与持续回合类的状态，持续回合减1
+        /// </summary>
+        public void StateRoundDec()
+        {
+            foreach (State s in States)
+            {
+                if (s.Rounds > 0)
+                    s.Rounds--;
+            }
+        }
+        /// <summary>
+        /// 清空角色的所有状态栏
         /// </summary>
         public void ResetState()
         {
@@ -273,7 +328,7 @@ namespace 拳愿阿修罗
         /// <param name="damage"></param>
         /// <param name="stateType">BUFF和DEBUFF</param>
         /// <returns></returns>
-        public int GetIncreaseDamage(int damage,StateType stateType)
+        public int GetIncreaseDamage(int damage, StateType stateType)
         {
             int tempDamage = damage;
             foreach (State state in States)
@@ -309,10 +364,61 @@ namespace 拳愿阿修罗
             }
             return tempDamage;
         }
-        //public bool CostHP()
-        //{
+        /// <summary>
+        /// 角色受到伤害
+        /// </summary>
+        /// <param name="damage"></param>
+        /// <param name="index"></param>
+        /// <returns></returns>
+        public bool GetDamage(int damage, int[] index)
+        {
+            
+            int Damage = 0;
+            if (HP >= damage)
+            {
+                Damage = damage;
+                HP -= damage;
+            }
+            else
+            {
+                Damage = HP;
+                HP = 0;
+            }
+            string text = string.Format("{0}受到了{1}点伤害", Name, Damage);
+            Draw.BattleInfo(text, index);
 
-        //}
+            if (!IsAlive())
+            {
+                Draw.BattleInfo((Name + "重伤倒地"), index);
+                ResetState();
+            }
+            Draw.DrawDamageAnimation(this);
+            return IsAlive();
+        }
+        /// <summary>
+        /// 角色受到治疗
+        /// </summary>
+        /// <param name="recover"></param>
+        /// <param name="index"></param>
+        public void GetHeal(int heal, int[] index)
+        {
+            int Heal = 0;
+            if (MaxHP(Frame) <= heal + HP)
+            {
+                Heal = MaxHP(Frame) - HP;
+                HP = MaxHP(Frame);
+            }
+            else
+            {
+                Heal = heal;
+                HP += Heal;
+            }
+            string text = string.Format("{0}恢复了{1}点生命值", Name, Heal);
+            Console.ForegroundColor = ConsoleColor.Green;
+            Draw.BattleInfo(text, index);
+            Draw.DrawHealAnimation(this);
+        }
+
 
         public bool IsAlive()
         {

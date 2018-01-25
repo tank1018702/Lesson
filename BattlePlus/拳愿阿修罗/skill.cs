@@ -6,9 +6,6 @@ using System.Threading.Tasks;
 
 namespace 拳愿阿修罗
 {
-    
-
-
     class Skill
     {
         /// <summary>
@@ -102,11 +99,13 @@ namespace 拳愿阿修罗
             }
             return true;
         }
+   
 
-        public void UseSkill(Character attacker,Character behiter)
+        public void UseSkill(Character attacker,Character behiter,int[] index)
         {
             if (Type==SkillType.Active)
             {
+                
                 attacker.HP -= CostHP;
                 attacker.STA -= CostSTA; 
                 for(int i=0;i<HitTimes;i++)
@@ -114,6 +113,8 @@ namespace 拳愿阿修罗
                     int tempdamage;
                     if(behiter.IsHit()&&MustHit==false)
                     {
+                        string text = string.Format("{0}躲闪开了",behiter.Name);
+                        Draw.BattleInfo(text, index);
                         continue;
                     }
                     tempdamage = SkillDamage(attacker, behiter);
@@ -127,9 +128,17 @@ namespace 拳愿阿修罗
                     tempdamage = behiter.GetWeakenedDamage(tempdamage, StateType.Buff);
                     if(attacker.IsCrit()||MustCrit==true)
                     {
+                        string text = string.Format("{0}击中了要害",attacker.Name);
+                        Console.ForegroundColor = ConsoleColor.Red;
+                        Draw.BattleInfo(text, index);
                         tempdamage = (int)(tempdamage * attacker.CriticalRatio(attacker.Strength));
-                    }
+                        behiter.GetDamage(tempdamage, index);
+                    }                   
                 }
+            }
+            if(Type==SkillType.Passive)
+            {
+
             }
         }
                                

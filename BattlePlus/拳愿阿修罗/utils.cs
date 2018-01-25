@@ -46,7 +46,7 @@ namespace 拳愿阿修罗
     /// <summary>
     /// 状态的类型
     /// </summary>
-    enum StateType
+    public enum StateType
     {
         /// <summary>
         /// 增益状态
@@ -60,6 +60,35 @@ namespace 拳愿阿修罗
         /// 常驻状态,多由被动技能附带
         /// </summary>
         PermanentState
+    }
+    public enum StateEffectType
+    {
+        /// <summary>
+        /// 攻击时伤害的增强与削弱
+        /// </summary>
+        HitDamage,
+        /// <summary>
+        /// 被攻击时的伤害增强与削弱
+        /// </summary>
+        BeHitDamage,
+        /// <summary>
+        /// 力量的增/减
+        /// </summary>
+        StrengthChange,
+        /// <summary>
+        /// 敏捷的增/减
+        /// </summary>
+        AgileChange,
+        /// <summary>
+        /// 血量的增/减
+        /// </summary>
+        HP,
+        /// <summary>
+        /// 体力的增/减
+        /// </summary>
+        STA
+
+
     }
 
 }

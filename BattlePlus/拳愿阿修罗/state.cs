@@ -18,13 +18,17 @@ namespace 拳愿阿修罗
         /// </summary>
         public string Name;
         /// <summary>
-        /// 生成这个状态的技能名字
+        /// 触发状态的技能名字
         /// </summary>
         public string SkillName;
         /// <summary>
-        /// 技能类型 BUFF/DEBUFF
+        /// 状态类型 BUFF/DEBUFF
         /// </summary>
         public StateType StateType;
+        /// <summary>
+        /// 状态效果类型
+        /// </summary>
+        public StateEffectType stateEffectType;
         /// <summary>
         /// 状态的生效次数
         /// </summary>
@@ -44,9 +48,13 @@ namespace 拳愿阿修罗
         /// </summary>
         public int StaminaOverTime = 0;
         /// <summary>
-        /// 受到状态时提升/降低的力量值
+        /// 受到状态影响时提升/降低的力量值
         /// </summary>
-        public int Strength = 0;
+        public int StrengthChange = 0;
+        /// <summary>
+        /// 受到状态影响时提升/降低的敏捷值
+        /// </summary>
+        public int AgileChange = 0;
         /// <summary>
         /// 受到伤害加深或削弱的比率
         /// </summary>
