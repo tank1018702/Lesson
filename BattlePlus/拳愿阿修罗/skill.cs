@@ -8,19 +8,13 @@ namespace 拳愿阿修罗
 {
     class Skill
     {
-        /// <summary>
-        /// 被动常驻技能的触发条件委托
-        /// </summary>
-        /// <param name="Attacter"></param>
-        /// <param name="BeHiter"></param>
-        /// <returns></returns>
-        internal delegate bool SkillTrigger(Character Attacter, Character BeHiter);
-        /// <summary>
-        /// 技能附加状态的委托
-        /// </summary>
-        /// <param name="attacter">攻击者</param>
-        /// <param name="BeHiter">被攻击者</param>
-        internal delegate void SkillState(Character Attacter, Character BeHiter);
+
+        ///// <summary>
+        ///// 技能附加状态的委托
+        ///// </summary>
+        ///// <param name="attacter">攻击者</param>
+        ///// <param name="BeHiter">被攻击者</param>
+        //internal delegate State SkillState();
         /// <summary>
         /// 技能名字
         /// </summary>
@@ -48,7 +42,7 @@ namespace 拳愿阿修罗
         /// <summary>
         /// 技能的伤害系数
         /// </summary>
-        public double DamageRate=1;
+        public double DamageRate=1.0;
         /// <summary>
         /// 技能是否包含即死效果
         /// </summary>
@@ -65,27 +59,31 @@ namespace 拳愿阿修罗
         /// 必定暴击效果
         /// </summary>
         public bool MustCrit = false;
-        /// <summary>
-        /// 状态的触发几率
-        /// </summary>
-        public int TriggerRate = 0;
-        /// <summary>
-        /// 技能附加状态
-        /// </summary>
-        public SkillState skillstate = null;
+
+        public State SkillState=null;
+      
+        public bool SkillStateEffect()
+        {
+            if(SkillState.IsTrigger())
+            {
+
+                return true;
+            }
+            return false;
+        }
+        ///// <summary>
+        ///// 技能附加状态
+        ///// </summary>
+        //public SkillState skillstate = null;        
         /// <summary>
         /// 技能的伤害值计算,返回一个计算完毕后的伤害值
         /// </summary>
         public  int SkillDamage(Character attacter,Character behiter)
         {
-            int damage = Convert.ToInt32(attacter.Damage(attacter.Strength) * DamageRate - behiter.DamageModifier(behiter.Frame));
+            int damage = (int)(attacter.Damage() * DamageRate - behiter.DamageModifier());
+                
             return damage > 0 ? damage : 1;
         }
-        /// <summary>
-        /// 创建被动常驻技能的时候调用的触发方法,返回一个布尔值,为true则触发,触发可以是增益或减益状态或直接反击伤害之类
-        /// </summary>
-        public SkillTrigger skilltrigger = null;
-
         /// <summary>
         ///  判断角色是否能使用技能
         /// </summary>
@@ -93,7 +91,7 @@ namespace 拳愿阿修罗
         /// <returns></returns>
         public bool CanUseSkill(Character cha)
         {
-            if(cha.HP<=CostHP||cha.STA<=CostSTA)
+            if(cha.HP<CostHP||cha.STA<CostSTA)
             {
                 return false;
             }
@@ -105,39 +103,63 @@ namespace 拳愿阿修罗
         {
             if (Type==SkillType.Active)
             {
-                
+                string text = string.Format("{0}使用了{1}",attacker.Name,Name);
+                Console.ForegroundColor = ConsoleColor.Yellow;
+                Draw.BattleInfo(text, index);
+                Console.ForegroundColor = ConsoleColor.Gray;
                 attacker.HP -= CostHP;
                 attacker.STA -= CostSTA; 
                 for(int i=0;i<HitTimes;i++)
                 {
+                    Draw.DrawAttackAnimation(attacker);
                     int tempdamage;
                     if(behiter.IsHit()&&MustHit==false)
                     {
-                        string text = string.Format("{0}躲闪开了",behiter.Name);
+                         text = string.Format("{0}躲闪开了",behiter.Name);
                         Draw.BattleInfo(text, index);
+                        Draw.DrawDogeAnimation(behiter);
                         continue;
                     }
                     tempdamage = SkillDamage(attacker, behiter);
-                    if (skillstate != null)
+                    if(SkillState!=null)
                     {
-                        skillstate.Invoke(attacker, behiter);
-                    }
+                        if (SkillStateEffect())
+                        {
+                            if (SkillState.StateType == StateType.Buff)
+                            {                           
+                                attacker.AddState(SkillState, index);
+                            }
+                            else
+                            {
+                                behiter.AddState(SkillState, index);
+                            }
+
+                        }
+                    }   
                     tempdamage = attacker.GetIncreaseDamage(tempdamage, StateType.Buff);
                     tempdamage = behiter.GetIncreaseDamage(tempdamage, StateType.Debuff);
                     tempdamage = attacker.GetWeakenedDamage(tempdamage, StateType.Debuff);
                     tempdamage = behiter.GetWeakenedDamage(tempdamage, StateType.Buff);
                     if(attacker.IsCrit()||MustCrit==true)
                     {
-                        string text = string.Format("{0}击中了要害",attacker.Name);
+                         text = string.Format("{0}击中了要害",attacker.Name);
                         Console.ForegroundColor = ConsoleColor.Red;
                         Draw.BattleInfo(text, index);
-                        tempdamage = (int)(tempdamage * attacker.CriticalRatio(attacker.Strength));
-                        behiter.GetDamage(tempdamage, index);
-                    }                   
+                        tempdamage = (int)(tempdamage * attacker.CriticalRatio());
+                        
+                    }
+                    behiter.GetDamage(tempdamage, index);
                 }
+                Console.ForegroundColor = ConsoleColor.Gray;
             }
-            if(Type==SkillType.Passive)
+            if(Type==SkillType.state)
             {
+                string text = string.Format("{0}使用了{1}", attacker.Name, Name);
+                Console.ForegroundColor = ConsoleColor.Yellow;
+                Draw.BattleInfo(text, index);
+                Console.ForegroundColor = ConsoleColor.Gray;
+                attacker.HP -= CostHP;
+                attacker.STA -= CostSTA;
 
             }
         }

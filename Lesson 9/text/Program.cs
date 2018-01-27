@@ -10,16 +10,14 @@ namespace text
     {
         static void Main(string[] args)
         {
-            int n = 1;
-
+            
             
             for (int i = 1; i < 21; i++)
             {
 
-                double d = (n+10)/1000.0+1 ;
-                double a = Math.Log(d,1.008);
-                Console.WriteLine("{0}:{1}", i, a);
-                n++;
+                int damagemodifier = (int)Math.Log((i / 10.0 + 1), 1.0055);
+                Console.WriteLine("{0}:{1}", i,damagemodifier);
+                
             }
 
             Console.ReadKey();

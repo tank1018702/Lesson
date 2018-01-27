@@ -176,8 +176,8 @@ namespace 拳愿阿修罗
         /// <param name="cha"></param>
         public static void CleanHP_STA(Character cha)
         {
-            int HP_temp = GetLength(Convert.ToString(cha.HP) + "/" + Convert.ToString(cha.MaxHP(cha.Frame)));
-            int STA_temp = GetLength(Convert.ToString(cha.STA) + "/" + Convert.ToString(cha.MaxSTA(cha.Frame)));
+            int HP_temp = GetLength(Convert.ToString(cha.HP) + "/" + Convert.ToString(cha.MaxHP()));
+            int STA_temp = GetLength(Convert.ToString(cha.STA) + "/" + Convert.ToString(cha.MaxSTA()));
             if (cha.type == CharaType.Player)
             {
                 Console.SetCursorPosition(1, 1);
@@ -240,9 +240,9 @@ namespace 拳愿阿修罗
                 Console.SetCursorPosition(0, 10);
                 Console.Write("STR:{0} FRA:{1} AGI:{2}", cha.Strength, cha.Frame, cha.Agile);
                 Console.SetCursorPosition(0, 12);
-                Console.Write("ATK:{0} DEF:{1}", cha.Damage(cha.Strength), cha.DamageModifier(cha.Frame));
+                Console.Write("ATK:{0} DEF:{1}", cha.Damage(), cha.DamageModifier());
                 Console.SetCursorPosition(0, 14);
-                Console.Write("CRT:{0}% DOGE:{1}%", cha.CritRate(cha.Agile), cha.DodgeRate(cha.Agile));
+                Console.Write("CRT:{0}% DOGE:{1}%", cha.CritRate(), cha.DodgeRate());
 
             }
             if (cha.type == CharaType.Computer)
@@ -254,12 +254,12 @@ namespace 拳愿阿修罗
                 temp = GetLength("STR: FRA: AGI:" + cha.Strength + cha.Frame + cha.Agile);
                 Console.SetCursorPosition(114 - temp, 10);
                 Console.Write("STR:{0} FRA:{1} AGI:{2}", cha.Strength, cha.Frame, cha.Agile);
-                temp = GetLength("ATK: DEF:" + cha.Damage(cha.Strength) + cha.DamageModifier(cha.Frame));
+                temp = GetLength("ATK: DEF:" + cha.Damage() + cha.DamageModifier());
                 Console.SetCursorPosition(114 - temp, 12);
-                Console.Write("ATK:{0} DEF:{1}", cha.Damage(cha.Strength), cha.DamageModifier(cha.Frame));
-                temp = GetLength("CRT:% DOGE:%" + cha.CritRate(cha.Agile) + cha.DodgeRate(cha.Agile));
+                Console.Write("ATK:{0} DEF:{1}", cha.Damage(), cha.DamageModifier());
+                temp = GetLength("CRT:% DOGE:%" + cha.CritRate() + cha.DodgeRate());
                 Console.SetCursorPosition(114 - temp, 14);
-                Console.Write("CRT:{0}% DOGE:{1}%", cha.CritRate(cha.Agile), cha.DodgeRate(cha.Agile));
+                Console.Write("CRT:{0}% DOGE:{1}%", cha.CritRate(), cha.DodgeRate());
             }
             Console.ForegroundColor = ConsoleColor.Gray;
             Console.SetCursorPosition(0, 0);
@@ -269,10 +269,10 @@ namespace 拳愿阿修罗
         /// </summary>
         public static void DrawHP_and_STA(Character cha)
         {
-            int HP_length = HP_STALength(cha.HP, cha.MaxHP(cha.Frame));
-            int STA_lenrth = HP_STALength(cha.STA, cha.MaxSTA(cha.Frame));
-            int HP_temp = GetLength(Convert.ToString(cha.HP) + "/" + Convert.ToString(cha.MaxHP(cha.Frame)));
-            int STA_temp = GetLength(Convert.ToString(cha.STA) + "/" + Convert.ToString(cha.MaxSTA(cha.Frame)));
+            int HP_length = HP_STALength(cha.HP, cha.MaxHP());
+            int STA_lenrth = HP_STALength(cha.STA, cha.MaxSTA());
+            int HP_temp = GetLength(Convert.ToString(cha.HP) + "/" + Convert.ToString(cha.MaxHP()));
+            int STA_temp = GetLength(Convert.ToString(cha.STA) + "/" + Convert.ToString(cha.MaxSTA()));
             if (HP_length > 14)
             {
                 Console.ForegroundColor = ConsoleColor.Green;
@@ -301,9 +301,9 @@ namespace 拳愿阿修罗
                 }
                 Console.ForegroundColor = ConsoleColor.Gray;
                 Console.SetCursorPosition(22, 1);
-                Console.Write(" {0}/{1}", cha.HP, cha.MaxHP(cha.Frame));
+                Console.Write(" {0}/{1}", cha.HP, cha.MaxHP());
                 Console.SetCursorPosition(22, 3);
-                Console.Write(" {0}/{1}", cha.STA, cha.MaxSTA(cha.Frame));
+                Console.Write(" {0}/{1}", cha.STA, cha.MaxSTA());
                 Console.SetCursorPosition(0, 0);
             }
             if (cha.type == CharaType.Computer)
@@ -322,9 +322,9 @@ namespace 拳愿阿修罗
                 }
                 Console.ForegroundColor = ConsoleColor.Gray;
                 Console.SetCursorPosition(114 - 23 - HP_temp, 1);
-                Console.Write(" {0}/{1}", cha.HP, cha.MaxHP(cha.Frame));
+                Console.Write(" {0}/{1}", cha.HP, cha.MaxHP());
                 Console.SetCursorPosition(114 - 23 - STA_temp, 3);
-                Console.Write(" {0}/{1}", cha.STA, cha.MaxSTA(cha.Frame));
+                Console.Write(" {0}/{1}", cha.STA, cha.MaxSTA());
                 Console.SetCursorPosition(0, 0);
             }
         }
@@ -344,6 +344,7 @@ namespace 拳愿阿修罗
             DrawNameColor(cha, 15);
             Thread.Sleep(100);
             DrawNameBass(cha);
+            Thread.Sleep(200);
         }
         /// <summary>
         /// 播放角色受到治疗和增益状态时候的动画
@@ -360,9 +361,51 @@ namespace 拳愿阿修罗
             DrawNameColor(cha, 15);
             Thread.Sleep(100);
             DrawNameBass(cha);
+            Thread.Sleep(200);
         }
         /// <summary>
-        /// 把角色名字用红色打印,用于受到攻击的动画
+        /// 播放躲闪动画
+        /// </summary>
+        public static void DrawDogeAnimation(Character cha)
+        {
+            DrawNameBass(cha);
+            CleanName(cha, 8);
+            Thread.Sleep(100);
+            DrawNamedown(cha,9);
+            Thread.Sleep(100);
+            CleanName(cha, 9);
+            Thread.Sleep(100);
+            DrawNamedown(cha,9);
+            Thread.Sleep(100);
+            DrawNameBass(cha);
+            CleanName(cha, 9);
+            Thread.Sleep(200);
+        }
+        /// <summary>
+        /// 播放攻击动画
+        /// </summary>
+        /// <param name="cha"></param>
+        public static void DrawAttackAnimation(Character cha)
+        {
+            CleanfountName(cha, 0);
+            DrawfountName(cha, 4);
+            Thread.Sleep(100);
+            CleanfountName(cha, 4);
+            DrawfountName(cha, 8);
+            Thread.Sleep(100);
+            CleanfountName(cha, 8);
+            DrawfountName(cha, 8);
+            Thread.Sleep(100);
+            CleanfountName(cha, 8);
+            DrawfountName(cha, 4);
+            Thread.Sleep(100);
+            CleanfountName(cha, 4);
+            DrawfountName(cha, 0);
+            Thread.Sleep(200);
+
+        }
+        /// <summary>
+        /// 把角色名字用自定义颜色打印,用于受到攻击的动画
         /// </summary>
         /// <param name="cha"></param>
         static void DrawNameColor(Character cha,int color)
@@ -406,12 +449,112 @@ namespace 拳愿阿修罗
             Console.SetCursorPosition(0, 0);
         }
         /// <summary>
+        ///  将角色名前移打印出来,用于制作攻击动画
+        /// </summary>
+        /// <param name="cha"></param>
+        static void DrawfountName(Character cha,int length)
+        {
+            if (cha.type == CharaType.Player)
+            {
+                Console.ForegroundColor = ConsoleColor.White;
+                Console.SetCursorPosition(length, 8);
+                Console.Write(cha.Name);
+            }
+            if (cha.type == CharaType.Computer)
+            {
+                Console.ForegroundColor = ConsoleColor.White;
+                int temp = GetLength(cha.Name);
+                Console.SetCursorPosition(114 - temp-length, 8);
+                Console.Write(cha.Name);
+            }
+            Console.ForegroundColor = ConsoleColor.Gray;
+            Console.SetCursorPosition(0, 0);
+        }
+        /// <summary>
+        ///  将前移的角色民清除,用于制作攻击动画
+        /// </summary>
+        /// <param name="cha"></param>
+        static void CleanfountName(Character cha, int length)
+        {
+            if (cha.type == CharaType.Player)
+            {
+                Console.ForegroundColor = ConsoleColor.Black;
+                Console.SetCursorPosition(length, 8);
+                Console.Write(cha.Name);
+            }
+            if (cha.type == CharaType.Computer)
+            {
+                Console.ForegroundColor = ConsoleColor.Black;
+                int temp = GetLength(cha.Name);
+                Console.SetCursorPosition(114 - temp - length, 8);
+                Console.Write(cha.Name);
+            }
+            Console.ForegroundColor = ConsoleColor.Gray;
+            Console.SetCursorPosition(0, 0);
+        }
+        /// <summary>
+        ///  将角色名字上下移动打印 用于制作躲闪动画
+        /// </summary>
+        /// <param name="cha"></param>
+        static void DrawNamedown(Character cha,int line)
+        {
+            if (cha.type == CharaType.Player)
+            {
+                Console.ForegroundColor = ConsoleColor.White;
+                Console.SetCursorPosition(0,line);
+                Console.Write(cha.Name);
+            }
+            if (cha.type == CharaType.Computer)
+            {
+                Console.ForegroundColor = ConsoleColor.White;
+                int temp = GetLength(cha.Name);
+                Console.SetCursorPosition(114 - temp, line);
+                Console.Write(cha.Name);
+            }
+            Console.ForegroundColor = ConsoleColor.Gray;
+            Console.SetCursorPosition(0, 0);
+        }
+        /// <summary>
+        ///  清除上下移动名字,用于制作躲闪动画
+        /// </summary>
+        /// <param name="cha"></param>
+        static void CleanName(Character cha,int line)
+        {
+            if (cha.type == CharaType.Player)
+            {
+                Console.ForegroundColor = ConsoleColor.Black;
+                Console.SetCursorPosition(0, line);
+                Console.Write(cha.Name);
+            }
+            if (cha.type == CharaType.Computer)
+            {
+                Console.ForegroundColor = ConsoleColor.Black;
+                int temp = GetLength(cha.Name);
+                Console.SetCursorPosition(114 - temp, line);
+                Console.Write(cha.Name);
+            }
+            Console.ForegroundColor = ConsoleColor.Gray;
+            Console.SetCursorPosition(0, 0);
+        }
+        /// <summary>
+        /// 显示位于上方的回合数
+        /// </summary>
+        /// <param name="counts"></param>
+        public static void DrawRound(int round)
+        {
+            Console.ForegroundColor = ConsoleColor.White;
+            Console.SetCursorPosition(53, 0);
+            Console.Write("第" + round + "回合");
+            Console.SetCursorPosition(0, 0);
+        }
+        /// <summary>
         /// 打印玩家的状态栏(简略)
         /// </summary>
         /// <param name="cha"></param>
         public static void DrawState(Character cha)
         {
             string text = "";
+            Console.ForegroundColor = ConsoleColor.White;
             foreach(State state in cha.States)
             {
                 switch (state.stateEffectType)
@@ -440,12 +583,12 @@ namespace 拳愿阿修罗
                 if (state.StateType==StateType.Buff)
                 {
                     text += "↑";
-                    Console.ForegroundColor = ConsoleColor.Green;
+                    
                 }
                 if(state.StateType==StateType.Debuff)
                 {
                     text += "↓";
-                    Console.ForegroundColor = ConsoleColor.Red;
+                    
                 }
                 Clean_StateInfo(cha);
                 if (cha.type==CharaType.Player)

@@ -8,6 +8,18 @@ namespace 拳愿阿修罗
 {
     class State
     {
+
+        public State(State s)
+        {
+
+        }
+        /// <summary>
+        /// 技能附加类特殊状态的触发条件与几率的委托
+        /// </summary>
+        /// <param name="Attacter"></param>
+        /// <param name="BeHiter"></param>
+        /// <returns></returns>
+        public delegate bool StateEffectTrigger(Character Attacter, Character BeHiter);
         /// <summary>
         ///  生效状态的委托
         /// </summary>
@@ -42,7 +54,7 @@ namespace 拳愿阿修罗
         /// <summary>
         /// 受到状态时每回合的伤害/治疗值
         /// </summary>
-        public int DamageOverTime=0;
+        public int HPOverTime=0;
         /// <summary>
         /// 受到状态时每回合恢复/损失的体力值
         /// </summary>
@@ -64,6 +76,24 @@ namespace 拳愿阿修罗
         /// </summary>
         public double HitRate = 0;
         /// <summary>
+        ///  状态的触发几率
+        /// </summary>
+        public int TriggerRate = 100;
+   
+        /// <summary>
+        /// 默认的状态是否触发的函数
+        /// </summary>
+        /// <returns></returns>
+        public bool IsTrigger()
+        {
+            if(Utils.random.Next(1,101)<=TriggerRate)
+            {
+                return true;
+            }
+            return false;
+        }
+       
+        /// <summary>
         /// 添加第一次生效的状态时调用的方法
         /// </summary>
         public StateEffect AddState = null;
@@ -71,5 +101,9 @@ namespace 拳愿阿修罗
         /// 移除状态时调用的方法
         /// </summary>
         public StateEffect RemoveState = null;
+        /// <summary>
+        /// 技能附加特殊状态的触发条件与几率
+        /// </summary>
+        public StateEffectTrigger EffectTrigger = null;
     }
 }

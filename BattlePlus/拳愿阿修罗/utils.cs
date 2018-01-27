@@ -20,9 +20,9 @@ namespace 拳愿阿修罗
         /// </summary>
         Active,
         /// <summary>
-        /// 被动技能类型
+        /// 状态技能类型
         /// </summary>
-        Passive
+        state,
     }
     public enum ActiveSkillType
     {
