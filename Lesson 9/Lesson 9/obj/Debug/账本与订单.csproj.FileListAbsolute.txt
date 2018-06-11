@@ -5,3 +5,10 @@ E:\shenyan\Lesson 9\Lesson 9\obj\Debug\账本与订单.csprojResolveAssemblyRefe
 E:\shenyan\Lesson 9\Lesson 9\obj\Debug\账本与订单.csproj.CoreCompileInputs.cache
 E:\shenyan\Lesson 9\Lesson 9\obj\Debug\Lesson 9.exe
 E:\shenyan\Lesson 9\Lesson 9\obj\Debug\Lesson 9.pdb
+E:\C#\Lesson 9\Lesson 9\bin\Debug\Lesson 9.exe.config
+E:\C#\Lesson 9\Lesson 9\bin\Debug\Lesson 9.exe
+E:\C#\Lesson 9\Lesson 9\bin\Debug\Lesson 9.pdb
+E:\C#\Lesson 9\Lesson 9\obj\Debug\账本与订单.csprojResolveAssemblyReference.cache
+E:\C#\Lesson 9\Lesson 9\obj\Debug\账本与订单.csproj.CoreCompileInputs.cache
+E:\C#\Lesson 9\Lesson 9\obj\Debug\Lesson 9.exe
+E:\C#\Lesson 9\Lesson 9\obj\Debug\Lesson 9.pdb

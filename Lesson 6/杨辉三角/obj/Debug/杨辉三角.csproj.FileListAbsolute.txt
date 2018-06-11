@@ -5,3 +5,10 @@ E:\shenyan\Lesson 6\杨辉三角\obj\Debug\杨辉三角.csprojResolveAssemblyRef
 E:\shenyan\Lesson 6\杨辉三角\obj\Debug\杨辉三角.csproj.CoreCompileInputs.cache
 E:\shenyan\Lesson 6\杨辉三角\obj\Debug\杨辉三角.exe
 E:\shenyan\Lesson 6\杨辉三角\obj\Debug\杨辉三角.pdb
+E:\C#\Lesson 6\杨辉三角\bin\Debug\杨辉三角.exe.config
+E:\C#\Lesson 6\杨辉三角\bin\Debug\杨辉三角.exe
+E:\C#\Lesson 6\杨辉三角\bin\Debug\杨辉三角.pdb
+E:\C#\Lesson 6\杨辉三角\obj\Debug\杨辉三角.csprojResolveAssemblyReference.cache
+E:\C#\Lesson 6\杨辉三角\obj\Debug\杨辉三角.csproj.CoreCompileInputs.cache
+E:\C#\Lesson 6\杨辉三角\obj\Debug\杨辉三角.exe
+E:\C#\Lesson 6\杨辉三角\obj\Debug\杨辉三角.pdb

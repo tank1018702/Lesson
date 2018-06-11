@@ -20,7 +20,7 @@ namespace PartyBattle
             Console.SetCursorPosition(0, line);
             for (int i = 0; i < Program.width; i++)
             {
-                Console.Write('1');
+                Console.Write(' ');
             }
             Console.SetCursorPosition(0, 0);
         }

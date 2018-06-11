@@ -5,3 +5,10 @@ E:\shenyan\Lesson 4\Lesson 4\obj\Debug\Lesson 4.csprojResolveAssemblyReference.c
 E:\shenyan\Lesson 4\Lesson 4\obj\Debug\Lesson 4.csproj.CoreCompileInputs.cache
 E:\shenyan\Lesson 4\Lesson 4\obj\Debug\Lesson 4.exe
 E:\shenyan\Lesson 4\Lesson 4\obj\Debug\Lesson 4.pdb
+E:\C#\Lesson 4\Lesson 4\bin\Debug\Lesson 4.exe.config
+E:\C#\Lesson 4\Lesson 4\bin\Debug\Lesson 4.exe
+E:\C#\Lesson 4\Lesson 4\bin\Debug\Lesson 4.pdb
+E:\C#\Lesson 4\Lesson 4\obj\Debug\Lesson 4.csprojResolveAssemblyReference.cache
+E:\C#\Lesson 4\Lesson 4\obj\Debug\Lesson 4.csproj.CoreCompileInputs.cache
+E:\C#\Lesson 4\Lesson 4\obj\Debug\Lesson 4.exe
+E:\C#\Lesson 4\Lesson 4\obj\Debug\Lesson 4.pdb
