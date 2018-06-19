@@ -31,6 +31,7 @@ namespace PushToWin
             return (logic_type & logic) != 0;
         }
         
+        //除String外所有字段都是值类型,因此可以直接使用浅表拷贝
         public object Clone()
         {
             return MemberwiseClone() as GameObject;
@@ -43,17 +44,23 @@ namespace PushToWin
     {
         //没有附加任何逻辑,只是显示在游戏界面里
         Null = 1,
+        //其他逻辑
         You = 1 << 1,
         Stop = 1 << 2,
         Push = 1 << 3,
         Kill = 1 << 4,
         Sink = 1 << 5,
         AI = 1 << 6,
-        //组成规则的逻辑字符,除了推不能附加其他任何规则
-        Subject = 1 << 7
-
+        //组成规则的逻辑字符,除了推不能附加其他任何规则,此处逻辑表示可以作为主体,只有名词能作为主体
+        Subject = 1 << 7,
+        //逻辑字符,表示可以作为客体,名词和动词都能作为客体
+        Object =1<<8
     }
 
+    public enum ObjectType
+    {
+
+    }
     public enum Direction
     {
         Up,
@@ -61,4 +68,6 @@ namespace PushToWin
         Left,
         Right
     }
+
+
 }

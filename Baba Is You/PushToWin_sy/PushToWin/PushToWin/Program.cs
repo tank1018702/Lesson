@@ -10,11 +10,7 @@ namespace PushToWin
     {
         static void Main(string[] args)
         {
-            GameObject a = new GameObject(0, 0, ConsoleColor.Red);
-
-            GameObject b = a;
-            b.x = 1;
-            Console.WriteLine(a.x + "|" + b.x);
+          
             Console.ReadKey();
         }
     }
