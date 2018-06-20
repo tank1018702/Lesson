@@ -8,25 +8,9 @@ namespace PushToWin
 {
     public class Map
     {
-        int height;
-        int width;
+        public int _height;
+        public int _width;
         string empty = "  ";
-
-        public int Height
-        {
-            get
-            {
-                return height;
-            }
-        }
-
-        public int Width
-        {
-            get
-            {
-                return width;
-            }
-        }
 
         string[,] Buffer;
 
@@ -34,20 +18,37 @@ namespace PushToWin
 
         ConsoleColor[,] ColorBuffer;
 
-        public Map(int h,int w,string _empty)
+        public static List<GameObject> all_object = new List<GameObject>();
+
+
+        public Map(int h, int w, string _empty)
         {
-            height = h;
-            width = w;
+            _height = h;
+            _width = w;
             empty = _empty;
-            Buffer = new string[height, width];
-            BackGroundBuffer = new string[height, width];
-            ColorBuffer = new ConsoleColor[height, width];
+            Buffer = new string[_height, _width];
+            BackGroundBuffer = new string[_height, _width];
+            ColorBuffer = new ConsoleColor[_height, _width];
             Console.CursorVisible = false;
         }
-        
-        void CopyBuffer(string [,] source,string [,] replica)
+
+        void CopyBuffer(string[,] source, string[,] replica)
         {
 
+        }
+         
+
+
+
+
+        public static void TestDraw(List<GameObject> list)
+        {
+            foreach (var i in list)
+            {
+
+                Console.SetCursorPosition((i.x+1) * 2, i.y+1);
+                Console.Write(i.Icon);
+            }
         }
     }
 }
