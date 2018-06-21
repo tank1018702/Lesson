@@ -9,21 +9,27 @@ namespace PushToWin
     public class GameObject : ICloneable
     {
         //在地图上的坐标
-        public int x;
-     
+        public int x; 
         public int y;
 
-        
-
+        //逻辑与类型信息
         public LogicType logic_type;
-        public ConsoleColor color;
         public ObjectType object_type;
 
+        public ConsoleColor color;
         //显示默认两个空格,因为汉字占用两个字节。
         public string Icon = "  ";
-        public string contect_Icon;
 
+        //指代的物体图标,仅名词
+        public string contect_Icon;
+        //附加的逻辑关系,仅动词
         public LogicType effect_logic;
+
+        //除String外所有字段都是值类型,因此可以直接使用浅表拷贝
+        public object Clone()
+        {
+            return MemberwiseClone() as GameObject;
+        }
 
         public GameObject(int x, int y)
         {
@@ -36,12 +42,14 @@ namespace PushToWin
         {
             return (logic_type & logic) != 0;
         }
-        
-        //除String外所有字段都是值类型,因此可以直接使用浅表拷贝
-        public object Clone()
+
+        public void RemoveLogic(LogicType type)
         {
-            return MemberwiseClone() as GameObject;
+            logic_type = logic_type & (~type);
         }
+        
+
+       
     }
 
 
@@ -57,19 +65,20 @@ namespace PushToWin
         Push = 1 << 4,
         Kill = 1 << 5,
         Sink = 1 << 6,
-        AI = 1 << 7,
-        //组成规则的逻辑字符,除了推不能附加其他任何规则,此处逻辑表示可以作为主体,只有名词能作为主体
-        Subject = 1 << 7,
-        //逻辑字符,表示可以作为客体,名词和动词都能作为客体
-        Object =1<<8
+        AI = 1 << 7
+      
     }
 
+
+    //类型枚举,因为类型唯一故不需要使用位域特性
     public enum ObjectType
     {
         eneity,
         verb,
         noun
     }
+
+
     public enum Direction
     {
         Up,

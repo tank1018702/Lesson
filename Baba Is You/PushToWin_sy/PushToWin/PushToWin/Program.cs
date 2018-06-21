@@ -9,17 +9,95 @@ namespace PushToWin
 {
     class Program
     {
+        static int width = 18;
+        static int height = 18;
+
+        static string[,] buffer;
+        static ConsoleColor[,] color_buffer;
+
+        static List<GameObject> all_objs = new List<GameObject>();
+
+       
+
         static void Main(string[] args)
         {
+
             //读取文件
-            List<string> file = FileManager.ReadMapFile("../../TEST.txt");
-            Map.TestDraw(GameLogic.GameObjectInit(file));
+
+
+
+            StageLogic();
+
 
 
             //生成示例化物体
             //生成逻辑
             //导入地图
             Console.ReadKey();
+
+
+
+
+
+
+
+        }
+
+        static void StageLogic()
+        {
+            List<string> file = FileManager.ReadMapFile("../../TEST.txt");
+            all_objs.AddRange(GameLogic.GameObjectInit(file));
+            Map map = new Map(width, height);
+            buffer = map.GetBuffer();
+            color_buffer = map.GetColorBuffer();
+            GameLogic.SetLogic();
+            map.ClearBuffer_DoubleBuffer();
+            DrawALL();
+            map.RefreshDoubleBuffer();
+            
+            int step = 0;
+            Dictionary<int, List<GameObject>> history = new Dictionary<int, List<GameObject>>();
+
+            while (true)
+            {
+                int run = GameLogic.Input();
+                if (run == 1)
+                {
+                    history[step] = new List<GameObject>();
+                    foreach (var obj in all_objs)
+                    {
+                        history[step].Add(obj.Clone()as GameObject);
+                    }
+                    step++;
+                }
+                else if (run == -1)
+                {
+                    if (step >= 1)
+                    {
+                        step--;
+                        all_objs.Clear();
+                        all_objs.AddRange(history[step]);
+                    }
+                }
+
+                if (run != 0)
+                {
+                    GameLogic.SetLogic();
+                    map.ClearBuffer_DoubleBuffer();
+                    DrawALL();
+                    map.RefreshDoubleBuffer();
+                   
+                }
+            }
+        }
+
+        static void DrawALL()
+        {
+            foreach (var obj in all_objs)
+            {
+                buffer[obj.x, obj.y] = obj.Icon;
+                color_buffer[obj.x, obj.y] = obj.color;
+            }
         }
     }
 
@@ -27,10 +105,11 @@ namespace PushToWin
     {
         public const int map_width = 18;
         public const int map_height = 18;
+        public static List<GameObject> AllGameObjects = new List<GameObject>();
 
         public static List<GameObject> GameObjectInit(List<string> file)
         {
-            var object_list = new List<GameObject>();
+
             for (int i = 0; i < file.Count; i++)
             {
                 char[] line = file[i].ToCharArray();
@@ -38,12 +117,13 @@ namespace PushToWin
                 {
                     GameObject obj = new GameObject(j, i);
                     GameObjectAssign(obj, line[j]);
-                    object_list.Add(obj);
+                    AllGameObjects.Add(obj);
                 }
 
             }
-            return object_list;
+            return AllGameObjects;
         }
+
 
         static void GameObjectAssign(GameObject obj, char tag)
         {
@@ -194,13 +274,14 @@ namespace PushToWin
             }
             else
             {
-                Console.WriteLine("地图读取异常字符");
+                obj.Icon = "错";
+                obj.color = ConsoleColor.Red;
             }
         }
 
-        public static void LogicInit(List<GameObject> objs)
+        public static void LogicInit()
         {
-            foreach (var obj in objs)
+            foreach (var obj in AllGameObjects)
             {
                 if (obj.object_type == ObjectType.eneity)
                 {
@@ -209,91 +290,250 @@ namespace PushToWin
             }
         }
 
-        public static void SetLogic(List<GameObject> objs)
+        static bool CheckByIcon(List<GameObject> list,string icon)
         {
-            List<GameObject> eneity_list = new List<GameObject>();
-            List<GameObject> noun_list = new List<GameObject>();
-            List<GameObject> verb_list = new List<GameObject>();
-            Dictionary<Pos, GameObject> dic = new Dictionary<Pos, GameObject>();
-            foreach (var obj in objs)
+            foreach(var temp in list)
             {
-                if (obj.object_type == ObjectType.eneity)
+                if(temp.Icon==icon)
                 {
-                    eneity_list.Add(obj);
+                    return true;
                 }
-                else if (obj.object_type == ObjectType.noun)
+            }
+            return false;
+        }
+
+        static bool CheckByObjectType(List<GameObject> list,ObjectType type,out GameObject obj)
+        {
+            foreach (var temp in list)
+            {
+                if (temp.object_type == type)
+                {
+                    obj = temp;
+                    return true;
+                }
+            }
+            obj = null;
+            return false;
+        }
+
+        static void ChangeObj(string cur,GameObject tar)
+        {    
+            foreach(var temp in AllGameObjects)
+            {
+                if(temp.Icon==cur)
+                {
+                    temp.Icon = tar.contect_Icon;
+                    temp.color = tar.color;
+                }
+            }
+        }
+        static void ChangeLogic(string cur,LogicType logic)
+        {
+            foreach(var temp in AllGameObjects)
+            {
+                if(temp.Icon==cur)
+                {
+                    temp.logic_type = temp.logic_type | logic;
+                }
+            }
+        }
+        public static void SetLogic()
+        {
+            LogicInit();
+
+            
+            List<GameObject> noun_list = new List<GameObject>();
+            foreach (var obj in AllGameObjects)
+            {
+                if(obj.object_type==ObjectType.noun)
                 {
                     noun_list.Add(obj);
-                }
-                else
-                {
-                    verb_list.Add(obj);
-                }
-                Pos p = new Pos(obj.x, obj.y);
-                dic.Add(p, obj);
+                }  
             }
+            foreach(var n in noun_list)
+            {
+              
+                List<GameObject> temp;
+                temp = GetObjectsByPos(n.x + 1, n.y);
+                if(!CheckByIcon(temp,"is"))
+                {
+                    continue;
+                }
+                temp = GetObjectsByPos(n.x + 2, n.y);
+                GameObject tar;
+                if(CheckByObjectType(temp,ObjectType.noun,out tar)||CheckByObjectType(temp,ObjectType.verb,out tar))
+                {
+                    if (tar.object_type == ObjectType.noun)
+                    {
+                        ChangeObj(n.contect_Icon, tar);
+                    }
+                    else
+                    {
+                        ChangeLogic(n.contect_Icon, tar.effect_logic);
+                    }
+                }
+                
+            }
+            foreach (var n in noun_list)
+            {
+
+                List<GameObject> temp;
+                temp = GetObjectsByPos(n.x , n.y+1);
+                if (!CheckByIcon(temp, "is"))
+                {
+                    continue;
+                }
+                temp = GetObjectsByPos(n.x , n.y+2);
+                GameObject tar;
+                if (CheckByObjectType(temp, ObjectType.noun, out tar) || CheckByObjectType(temp, ObjectType.verb, out tar))
+                {
+                    if (tar.object_type == ObjectType.noun)
+                    {
+                        ChangeObj(n.contect_Icon, tar);
+                    }
+                    else
+                    {
+                        ChangeLogic(n.contect_Icon, tar.effect_logic);
+                    }
+                }
+               
+            }
+
+            //LogicInit();
+            //List<GameObject> eneity_list = new List<GameObject>();
+            //List<GameObject> noun_list = new List<GameObject>();
+            //List<GameObject> verb_list = new List<GameObject>();
+            //Dictionary<Pos, GameObject> dic = new Dictionary<Pos, GameObject>();
+            //foreach (var obj in AllGameObjects)
+            //{
+            //    if (obj.object_type == ObjectType.eneity)
+            //    {
+            //        eneity_list.Add(obj);
+            //    }
+            //    else if (obj.object_type == ObjectType.noun)
+            //    {
+            //        noun_list.Add(obj);
+            //    }
+            //    else
+            //    {
+            //        verb_list.Add(obj);
+            //    }
+            //    Pos p = new Pos(obj.x, obj.y);
+            //    dic.Add(p, obj);
+            //}
             //先名词
-            foreach (var n in noun_list)
-            {
-                //下方
-                GameObject temp = dic[new Pos(n.x, n.y + 1)];
-                string icon_change = n.contect_Icon;
-                if (temp.Icon == "is")
-                {
-                    temp = dic[new Pos(n.x, n.y + 2)];
-                    if (temp.object_type == ObjectType.noun)
-                    {
-                        icon_change = temp.contect_Icon;
-                    }
-                }
-                //右方
-                temp = dic[new Pos(n.x + 1, n.y)];
-                if (temp.Icon == "is")
-                {
-                    temp = dic[new Pos(n.x = 2, n.y)];
-                    if (temp.object_type == ObjectType.noun)
-                    {
-                        icon_change = temp.contect_Icon;
-                    }
-                }
-                foreach (var e in eneity_list)
-                {
-                    if (e.Icon == n.contect_Icon)
-                    {
-                        e.Icon = icon_change;
-                    }
-                }
-            }
+            //foreach (var n in noun_list)
+            //{
+            //    下方
+            //    GameObject temp = dic[new Pos(n.x, n.y + 1)];
+            //    string icon_change = n.contect_Icon;
+            //    if (temp.Icon == "is")
+            //    {
+            //        temp = dic[new Pos(n.x, n.y + 2)];
+            //        if (temp.object_type == ObjectType.noun)
+            //        {
+            //            icon_change = temp.contect_Icon;
+            //        }
+            //    }
+            //    右方
+            //    temp = dic[new Pos(n.x + 1, n.y)];
+            //    if (temp.Icon == "is")
+            //    {
+            //        temp = dic[new Pos(n.x = 2, n.y)];
+            //        if (temp.object_type == ObjectType.noun)
+            //        {
+            //            icon_change = temp.contect_Icon;
+            //        }
+            //    }
+            //    foreach (var e in eneity_list)
+            //    {
+            //        if (e.Icon == n.contect_Icon)
+            //        {
+            //            e.Icon = icon_change;
+            //        }
+            //    }
+            //}
             //动词
-            foreach (var n in noun_list)
+            //foreach (var n in noun_list)
+            //{
+            //    GameObject temp = dic[new Pos(n.x, n.y + 1)];
+            //    LogicType type = LogicType.Null;
+            //    if (temp.Icon == "is")
+            //    {
+            //        temp = dic[new Pos(n.x, n.y + 2)];
+            //        if (temp.object_type == ObjectType.verb)
+            //        {
+            //            type = LogicType.Null | temp.logic_type;
+            //        }
+            //    }
+            //    temp = dic[new Pos(n.x + 1, n.y)];
+            //    if (temp.Icon == "is")
+            //    {
+            //        temp = dic[new Pos(n.x + 2, n.y)];
+            //        if (temp.object_type == ObjectType.verb)
+            //        {
+            //            type = LogicType.Null | temp.logic_type;
+            //        }
+            //    }
+            //    foreach (var e in eneity_list)
+            //    {
+            //        if (e.Icon == n.contect_Icon)
+            //        {
+            //            e.logic_type = type;
+            //        }
+            //    }
+            //}
+        }
+
+        static bool CanMovePlayer(int x, int y, Direction dir, List<GameObject> allMoves)
+        {
+            if (!_ChangeXY(ref x, ref y, dir))
             {
-                GameObject temp = dic[new Pos(n.x, n.y + 1)];
-                LogicType type = LogicType.Null;
-                if (temp.Icon == "is")
+                return false;
+            }
+            if (!CanBePushed(x, y, dir, allMoves))
+            {
+                return false;
+            }
+            return true;
+        }
+        static bool CanBePushed(int x, int y, Direction dir, List<GameObject> allMoves)
+        {
+            var boxes = GetObjectsByPos(x, y);
+            if (boxes.Count == 0)
+            {
+                return true;
+            }
+            bool needRecur = false;
+            foreach (var box in boxes)
+            {
+                if (!box.HasLogic((LogicType.Push) | LogicType.Stop))
                 {
-                    temp = dic[new Pos(n.x, n.y + 2)];
-                    if (temp.object_type == ObjectType.verb)
-                    {
-                        type = LogicType.Null | temp.logic_type;
-                    }
+                    continue;
                 }
-                temp = dic[new Pos(n.x + 1, n.y)];
-                if (temp.Icon == "is")
+                if (_OverBorder(x, y, dir))
                 {
-                    temp = dic[new Pos(n.x + 2, n.y)];
-                    if (temp.object_type == ObjectType.verb)
-                    {
-                        type = LogicType.Null | temp.logic_type;
-                    }
+                    return false;
                 }
-                foreach (var e in eneity_list)
+                if (box.HasLogic(LogicType.Stop))
                 {
-                    if (e.Icon == n.contect_Icon)
-                    {
-                        e.logic_type = type;
-                    }
+                    return false;
+                }
+                if (box.HasLogic(LogicType.Push))
+                {
+                    allMoves.Add(box);
+                    needRecur = true;
                 }
             }
+            if (needRecur)
+            {
+                if (!_ChangeXY(ref x, ref y, dir))
+                {
+                    return false;
+                }
+                return CanBePushed(x, y, dir, allMoves);
+            }
+            return true;
         }
 
         static bool _ChangeXY(ref int x, ref int y, Direction dir)
@@ -320,6 +560,119 @@ namespace PushToWin
             return true;
 
         }
+        static bool _OverBorder(int x, int y, Direction dir)
+        {
+            switch (dir)
+            {
+                case Direction.Left:
+                    if (x == 0) { return true; }
+                    break;
+                case Direction.Right:
+                    if (x == map_width - 1) { return true; }
+                    break;
+                case Direction.Up:
+                    if (y == 0) { return true; }
+                    break;
+                case Direction.Down:
+                    if (y == map_height - 1) { return true; }
+                    break;
+            }
+            return false;
+        }
+
+        static List<GameObject> FindAllPlayers()
+        {
+            var playerlist = new List<GameObject>();
+            foreach (var obj in AllGameObjects)
+            {
+                if (obj.HasLogic(LogicType.You))
+                {
+                    playerlist.Add(obj);
+                }
+            }
+            return playerlist;
+        }
+        static List<GameObject> GetObjectsByPos(int x, int y)
+        {
+            var tars = new List<GameObject>();
+            foreach (var obj in AllGameObjects)
+            {
+                if (obj.x == x && obj.y == y)
+                {
+                    tars.Add(obj);
+                }
+            }
+            return tars;
+
+        }
+
+        public static int Input()
+        {
+            ConsoleKeyInfo key = Console.ReadKey(true);
+            if (key.Key == ConsoleKey.Backspace)
+            {
+                return -1;
+            }
+            List<GameObject> AllPlayers = FindAllPlayers();
+            if (AllPlayers.Count == 0)
+            {
+                return 0;
+            }
+            Direction dir;
+            switch (key.Key)
+            {
+                case ConsoleKey.UpArrow:
+                    {
+                        dir = Direction.Up;
+                    }
+                    break;
+                case ConsoleKey.DownArrow:
+                    {
+                        dir = Direction.Down;
+                    }
+                    break;
+                case ConsoleKey.LeftArrow:
+                    {
+                        dir = Direction.Left;
+                    }
+                    break;
+                case ConsoleKey.RightArrow:
+                    {
+                        dir = Direction.Right;
+                    }
+                    break;
+                default:
+                    return 0;
+
+            }
+            Dictionary<GameObject, bool> container = new Dictionary<GameObject, bool>();
+            foreach (var player in AllPlayers)
+            {
+                List<GameObject> allMoves = new List<GameObject>();
+                if (!CanMovePlayer(player.x, player.y, dir, allMoves))
+                {
+                    continue;
+                }
+                container[player] = true;
+                foreach (var box in allMoves)
+                {
+                    container[box] = true;
+                }
+            }
+            if (container.Count == 0)
+            {
+                return 0;
+            }
+
+            foreach (var box in container.Keys)
+            {
+                _ChangeXY(ref box.x, ref box.y, dir);
+            }
+
+            return 1;
+        }
+
+
     }
 
     public class FileManager
