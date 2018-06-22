@@ -17,22 +17,22 @@ namespace PushToWin
 
         static List<GameObject> all_objs = new List<GameObject>();
 
-       
+
 
         static void Main(string[] args)
         {
 
+
+
+
             //读取文件
-
-
-
-            StageLogic();
-
-
-
             //生成示例化物体
             //生成逻辑
             //导入地图
+            StageLogic();
+
+
+            
             Console.ReadKey();
 
 
@@ -54,7 +54,7 @@ namespace PushToWin
             map.ClearBuffer_DoubleBuffer();
             DrawALL();
             map.RefreshDoubleBuffer();
-            
+
             int step = 0;
             Dictionary<int, List<GameObject>> history = new Dictionary<int, List<GameObject>>();
 
@@ -66,7 +66,7 @@ namespace PushToWin
                     history[step] = new List<GameObject>();
                     foreach (var obj in all_objs)
                     {
-                        history[step].Add(obj.Clone()as GameObject);
+                        history[step].Add(obj.Clone() as GameObject);
                     }
                     step++;
                 }
@@ -77,6 +77,7 @@ namespace PushToWin
                         step--;
                         all_objs.Clear();
                         all_objs.AddRange(history[step]);
+                        
                     }
                 }
 
@@ -86,19 +87,25 @@ namespace PushToWin
                     map.ClearBuffer_DoubleBuffer();
                     DrawALL();
                     map.RefreshDoubleBuffer();
-                   
+
                 }
             }
         }
 
         static void DrawALL()
         {
+            all_objs.Sort((a,b)=>a.logic_type.CompareTo(b.logic_type));
             foreach (var obj in all_objs)
             {
-                buffer[obj.x, obj.y] = obj.Icon;
+                if (obj.Icon != "")
+                {
+                    buffer[obj.x, obj.y] = obj.Icon;
+                }
+                
                 color_buffer[obj.x, obj.y] = obj.color;
             }
         }
+        
     }
 
     public class GameLogic
@@ -255,20 +262,25 @@ namespace PushToWin
                 obj.Icon = Data.GameObjectIcon[n];
                 obj.color = Data.GameObjectColors[n];
                 obj.object_type = ObjectType.eneity;
+                //if(n!=8)
+                //{
+                //    obj.
+                //}
+                
             }
             else if (n < 20)
             {
                 obj.Icon = Data.GameObjectChar[n - 10];
                 obj.color = Data.GameObjectColors[n - 10];
                 obj.contect_Icon = Data.GameObjectIcon[n - 10];
-                obj.logic_type = LogicType.Null | LogicType.Push;
+                obj.logic_type = LogicType.Null | LogicType.Push|LogicType.Subject|LogicType.Object;
                 obj.object_type = ObjectType.noun;
             }
             else if (n < 30)
             {
                 obj.Icon = Data.behaviourNames[n - 20];
                 obj.color = Data.behaviourColors[n - 20];
-                obj.logic_type = LogicType.Null | LogicType.Push;
+                obj.logic_type = LogicType.Null | LogicType.Push|LogicType.Object;
                 obj.object_type = ObjectType.verb;
 
             }
@@ -290,11 +302,11 @@ namespace PushToWin
             }
         }
 
-        static bool CheckByIcon(List<GameObject> list,string icon)
+        static bool CheckByIcon(List<GameObject> list, string icon)
         {
-            foreach(var temp in list)
+            foreach (var temp in list)
             {
-                if(temp.Icon==icon)
+                if (temp.Icon == icon)
                 {
                     return true;
                 }
@@ -302,7 +314,7 @@ namespace PushToWin
             return false;
         }
 
-        static bool CheckByObjectType(List<GameObject> list,ObjectType type,out GameObject obj)
+        static bool CheckByObjectType(List<GameObject> list, ObjectType type, out GameObject obj)
         {
             foreach (var temp in list)
             {
@@ -316,22 +328,22 @@ namespace PushToWin
             return false;
         }
 
-        static void ChangeObj(string cur,GameObject tar)
-        {    
-            foreach(var temp in AllGameObjects)
+        static void ChangeObj(string cur, GameObject tar)
+        {
+            foreach (var temp in AllGameObjects)
             {
-                if(temp.Icon==cur)
+                if (temp.Icon == cur)
                 {
                     temp.Icon = tar.contect_Icon;
                     temp.color = tar.color;
                 }
             }
         }
-        static void ChangeLogic(string cur,LogicType logic)
+        static void ChangeLogic(string cur, LogicType logic)
         {
-            foreach(var temp in AllGameObjects)
+            foreach (var temp in AllGameObjects)
             {
-                if(temp.Icon==cur)
+                if (temp.Icon == cur)
                 {
                     temp.logic_type = temp.logic_type | logic;
                 }
@@ -341,49 +353,25 @@ namespace PushToWin
         {
             LogicInit();
 
-            
+
             List<GameObject> noun_list = new List<GameObject>();
             foreach (var obj in AllGameObjects)
             {
-                if(obj.object_type==ObjectType.noun)
+                if (obj.object_type == ObjectType.noun)
                 {
                     noun_list.Add(obj);
-                }  
-            }
-            foreach(var n in noun_list)
-            {
-              
-                List<GameObject> temp;
-                temp = GetObjectsByPos(n.x + 1, n.y);
-                if(!CheckByIcon(temp,"is"))
-                {
-                    continue;
                 }
-                temp = GetObjectsByPos(n.x + 2, n.y);
-                GameObject tar;
-                if(CheckByObjectType(temp,ObjectType.noun,out tar)||CheckByObjectType(temp,ObjectType.verb,out tar))
-                {
-                    if (tar.object_type == ObjectType.noun)
-                    {
-                        ChangeObj(n.contect_Icon, tar);
-                    }
-                    else
-                    {
-                        ChangeLogic(n.contect_Icon, tar.effect_logic);
-                    }
-                }
-                
             }
             foreach (var n in noun_list)
             {
 
                 List<GameObject> temp;
-                temp = GetObjectsByPos(n.x , n.y+1);
+                temp = GetObjectsByPos(n.x + 1, n.y);
                 if (!CheckByIcon(temp, "is"))
                 {
                     continue;
                 }
-                temp = GetObjectsByPos(n.x , n.y+2);
+                temp = GetObjectsByPos(n.x + 2, n.y);
                 GameObject tar;
                 if (CheckByObjectType(temp, ObjectType.noun, out tar) || CheckByObjectType(temp, ObjectType.verb, out tar))
                 {
@@ -396,7 +384,31 @@ namespace PushToWin
                         ChangeLogic(n.contect_Icon, tar.effect_logic);
                     }
                 }
-               
+
+            }
+            foreach (var n in noun_list)
+            {
+
+                List<GameObject> temp;
+                temp = GetObjectsByPos(n.x, n.y + 1);
+                if (!CheckByIcon(temp, "is"))
+                {
+                    continue;
+                }
+                temp = GetObjectsByPos(n.x, n.y + 2);
+                GameObject tar;
+                if (CheckByObjectType(temp, ObjectType.noun, out tar) || CheckByObjectType(temp, ObjectType.verb, out tar))
+                {
+                    if (tar.object_type == ObjectType.noun)
+                    {
+                        ChangeObj(n.contect_Icon, tar);
+                    }
+                    else
+                    {
+                        ChangeLogic(n.contect_Icon, tar.effect_logic);
+                    }
+                }
+
             }
 
             //LogicInit();
@@ -485,100 +497,131 @@ namespace PushToWin
             //}
         }
 
-        static bool CanMovePlayer(int x, int y, Direction dir, List<GameObject> allMoves)
+        //static bool CanMovePlayer(int x, int y, Direction dir, List<GameObject> allMoves)
+        //{
+        //    if (!_ChangeXY(ref x, ref y, dir))
+        //    {
+        //        return false;
+        //    }
+        //    if (!CanBePushed(x, y, dir, allMoves))
+        //    {
+        //        return false;
+        //    }
+        //    return true;
+        //}
+        //static bool CanBePushed(int x, int y, Direction dir, List<GameObject> allMoves)
+        //{
+        //    var boxes = GetObjectsByPos(x, y);
+        //    if (boxes.Count == 0)
+        //    {
+        //        return true;
+        //    }
+        //    bool needRecur = false;
+        //    foreach (var box in boxes)
+        //    {
+        //        if (!box.HasLogic((LogicType.Push) | LogicType.Stop))
+        //        {
+        //            continue;
+        //        }
+        //        if (_OverBorder(x, y, dir))
+        //        {
+        //            return false;
+        //        }
+        //        if (box.HasLogic(LogicType.Stop))
+        //        {
+        //            return false;
+        //        }
+        //        if (box.HasLogic(LogicType.Push))
+        //        {
+        //            allMoves.Add(box);
+        //            needRecur = true;
+        //        }
+        //    }
+        //    if (needRecur)
+        //    {
+        //        if (!_ChangeXY(ref x, ref y, dir))
+        //        {
+        //            return false;
+        //        }
+        //        return CanBePushed(x, y, dir, allMoves);
+        //    }
+        //    return true;
+        //}
+        static bool CheckDirectionLogic(int x, int y, Direction dir)
         {
-            if (!_ChangeXY(ref x, ref y, dir))
-            {
-                return false;
-            }
-            if (!CanBePushed(x, y, dir, allMoves))
-            {
-                return false;
-            }
-            return true;
-        }
-        static bool CanBePushed(int x, int y, Direction dir, List<GameObject> allMoves)
-        {
-            var boxes = GetObjectsByPos(x, y);
-            if (boxes.Count == 0)
+            var next_objs = GetObjectsByPos(x, y);
+            if (next_objs.Count == 0)
             {
                 return true;
             }
-            bool needRecur = false;
-            foreach (var box in boxes)
+            foreach (var obj in next_objs)
             {
-                if (!box.HasLogic((LogicType.Push) | LogicType.Stop))
-                {
-                    continue;
-                }
-                if (_OverBorder(x, y, dir))
+                if (obj.HasLogic(LogicType.Stop))
                 {
                     return false;
                 }
-                if (box.HasLogic(LogicType.Stop))
+                if (obj.HasLogic(LogicType.Push))
                 {
-                    return false;
+                    return _ChangeXY(ref obj.x, ref obj.y, dir);
                 }
-                if (box.HasLogic(LogicType.Push))
+                if (obj.HasLogic(LogicType.Sink))
                 {
-                    allMoves.Add(box);
-                    needRecur = true;
+                    
+
                 }
-            }
-            if (needRecur)
-            {
-                if (!_ChangeXY(ref x, ref y, dir))
+                if (obj.HasLogic(LogicType.Win))
                 {
-                    return false;
+
                 }
-                return CanBePushed(x, y, dir, allMoves);
+                if (obj.HasLogic(LogicType.Kill))
+                {
+
+                }
             }
             return true;
+
+
+
         }
 
+        //返回是否能改变坐标,若能并移动
         static bool _ChangeXY(ref int x, ref int y, Direction dir)
         {
             switch (dir)
             {
                 case Direction.Left:
-                    if (x == 0) { return false; }
+                    if (x == 0|| !CheckDirectionLogic(x - 1, y, dir))
+                    {
+                        return false;
+                    }
                     x -= 1;
                     break;
                 case Direction.Right:
-                    if (x == map_width - 1) { return false; }
+                    if (x == map_width - 1||!CheckDirectionLogic(x + 1, y, dir))
+                    {
+                        return false;
+                    }
                     x += 1;
                     break;
                 case Direction.Up:
-                    if (y == 0) { return false; }
+                    if (y == 0||!CheckDirectionLogic(x , y-1, dir))
+                    {
+                        return false;
+                    }
                     y -= 1;
                     break;
                 case Direction.Down:
-                    if (y == map_height - 1) { return false; }
+                    if (y == map_height - 1|| !CheckDirectionLogic(x , y+1, dir))
+                    {
+                        return false;
+                    }
                     y += 1;
                     break;
             }
             return true;
 
         }
-        static bool _OverBorder(int x, int y, Direction dir)
-        {
-            switch (dir)
-            {
-                case Direction.Left:
-                    if (x == 0) { return true; }
-                    break;
-                case Direction.Right:
-                    if (x == map_width - 1) { return true; }
-                    break;
-                case Direction.Up:
-                    if (y == 0) { return true; }
-                    break;
-                case Direction.Down:
-                    if (y == map_height - 1) { return true; }
-                    break;
-            }
-            return false;
-        }
+        
 
         static List<GameObject> FindAllPlayers()
         {
@@ -645,34 +688,21 @@ namespace PushToWin
                     return 0;
 
             }
-            Dictionary<GameObject, bool> container = new Dictionary<GameObject, bool>();
+            int container=0;
             foreach (var player in AllPlayers)
-            {
-                List<GameObject> allMoves = new List<GameObject>();
-                if (!CanMovePlayer(player.x, player.y, dir, allMoves))
+            {       
+                if(!_ChangeXY(ref player.x,ref player.y,dir))
                 {
                     continue;
                 }
-                container[player] = true;
-                foreach (var box in allMoves)
-                {
-                    container[box] = true;
-                }
+                container++;        
             }
-            if (container.Count == 0)
+            if (container == 0)
             {
                 return 0;
             }
-
-            foreach (var box in container.Keys)
-            {
-                _ChangeXY(ref box.x, ref box.y, dir);
-            }
-
             return 1;
         }
-
-
     }
 
     public class FileManager

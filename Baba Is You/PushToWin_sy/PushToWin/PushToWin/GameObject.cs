@@ -59,14 +59,16 @@ namespace PushToWin
         //没有附加任何逻辑,只是显示在游戏界面里
         Null = 1,
         //其他逻辑
-        Win=1<<1,
+        Win = 1 << 1,
         You = 1 << 2,
         Stop = 1 << 3,
         Push = 1 << 4,
         Kill = 1 << 5,
         Sink = 1 << 6,
-        AI = 1 << 7
-      
+        AI = 1 << 7,
+        Subject = 1 << 8,
+        Object = 1 << 9
+
     }
 
 

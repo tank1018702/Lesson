@@ -62,12 +62,38 @@ namespace 快速排序
             QuickSort(list, _left, left - 1);
             QuickSort(list, left + 1, _right);
         }
+
+        static int Totalone(int n)
+        {
+            int count = 0;
+            while(n!=0)
+            {
+                n = n & (n - 1);
+                count++;
+            }
+            return count;
+        }
+
+        static bool Isfactorial(int n)
+        {
+           
+            if (n!=1&& Totalone(n)==1)
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        }
         static void Main(string[] args)
         {
-            var list = GetList();
-            PrintList(list);
-            QuickSort(list, 0, list.Count - 1);
-            PrintList(list);
+            //var list = GetList();
+            //PrintList(list);
+            //QuickSort(list, 0, list.Count - 1);
+            //PrintList(list);
+            
+            Console.Write(Isfactorial(64));
 
             Console.ReadKey();
         }
